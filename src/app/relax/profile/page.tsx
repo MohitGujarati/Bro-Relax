@@ -15,5 +15,3 @@ const CommunityPage: FC = () => {
 };
 
 export default CommunityPage; // Exporting the renamed component
-
-```

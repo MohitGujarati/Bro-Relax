@@ -99,7 +99,7 @@ const MotivationBox: FC = () => {
             </Button>
           </div>
         </CardContent>
-        
+
         {/* Music Player Section */}
         <div className="bg-secondary/20 backdrop-blur-sm p-4 border-t border-border/20">
           <div className="flex items-center text-sm text-muted-foreground mb-2 font-medium">
@@ -124,4 +124,3 @@ const MotivationBox: FC = () => {
 };
 
 export default MotivationBox;
-```

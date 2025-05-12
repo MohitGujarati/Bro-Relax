@@ -181,4 +181,3 @@ const CommunityShoutouts: FC = () => {
 };
 
 export default CommunityShoutouts;
-```
