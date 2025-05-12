@@ -23,7 +23,7 @@ const BreathingExercise: FC = () => {
 
   const startAnimation = () => {
     setIsAnimating(true);
-    runCycle();
+    // runCycle will be triggered by the useEffect watching isAnimating
   };
 
   const pauseAnimation = () => {
@@ -36,53 +36,78 @@ const BreathingExercise: FC = () => {
   };
 
   const resetAnimation = () => {
-      pauseAnimation();
+      pauseAnimation(); // Ensure timers are cleared and state is false
       setPhase('ready');
       setInstruction("Get Ready...");
+      // Clear animation styles to reset visual state
       if (animationRef.current) {
-          // Reset animation classes/styles if needed
-           animationRef.current.style.animation = 'none'; // Remove animation to reset
-           // Force reflow
-           // eslint-disable-next-line @typescript-eslint/no-unused-vars
-           const reflow = animationRef.current.offsetHeight;
-           animationRef.current.style.animation = ''; // Re-add default or nothing
-           animationRef.current.style.animationPlayState = 'running';
+          animationRef.current.style.animation = 'none';
+          // Force reflow might not be strictly necessary but ensures reset
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const reflow = animationRef.current.offsetHeight;
+          animationRef.current.removeAttribute('style'); // Remove all inline styles including play state
       }
   };
 
+
   const runCycle = () => {
-    if (!isAnimating && phase !== 'ready') return; // Don't proceed if paused unless starting fresh
+    // This function should only be called when isAnimating is true
+    if (!isAnimating) return;
 
     setPhase('inhale');
     setInstruction("Breathe In...");
+    if (animationRef.current) {
+      animationRef.current.style.animation = `breath-inhale ${cycleDuration.inhale / 1000}s ease-out forwards`;
+      animationRef.current.style.animationPlayState = 'running';
+    }
+
     timerRef.current = setTimeout(() => {
+      if (!isAnimating) return; // Check again in case paused during timeout
       setPhase('hold');
       setInstruction("Hold...");
+      // No visual change needed, inhale animation already set 'forwards'
+
       timerRef.current = setTimeout(() => {
+        if (!isAnimating) return; // Check again
         setPhase('exhale');
         setInstruction("Breathe Out...");
+        if (animationRef.current) {
+          animationRef.current.style.animation = `breath-exhale ${cycleDuration.exhale / 1000}s ease-in forwards`;
+          animationRef.current.style.animationPlayState = 'running';
+        }
+
         timerRef.current = setTimeout(() => {
-          // Loop back to inhale
+          if (!isAnimating) return; // Check again before looping
+          // Loop back
           runCycle();
         }, cycleDuration.exhale);
       }, cycleDuration.hold);
     }, cycleDuration.inhale);
   };
 
-  // Cleanup timer on component unmount or when animation stops definitively
+  // Cleanup timer on component unmount
   useEffect(() => {
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, []);
 
-   // Start animation when isAnimating becomes true
+   // Control animation based on isAnimating state
    useEffect(() => {
     if (isAnimating) {
+      if (animationRef.current?.style.animationPlayState === 'paused') {
+        // Resume animation if previously paused
+         animationRef.current.style.animationPlayState = 'running';
+      } else {
+        // Start cycle if not already running or paused
         runCycle();
+      }
+    } else {
+      // Pause animation if isAnimating becomes false
+      pauseAnimation();
     }
-     // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [isAnimating]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+   }, [isAnimating]); // Depend only on isAnimating
 
   return (
     <section aria-labelledby="breathing-exercise-title" className="w-full max-w-md mx-auto px-2 sm:px-0 py-6">
@@ -101,14 +126,14 @@ const BreathingExercise: FC = () => {
              <div
                 ref={animationRef}
                 className={cn(
-                    "w-1/2 h-1/2 bg-primary/70 rounded-full transition-all duration-1000 ease-in-out",
-                    isAnimating && phase === 'inhale' && 'animate-breath-inhale',
-                    isAnimating && phase === 'hold' && 'animate-breath-hold', // Use scale from inhale end
-                    isAnimating && phase === 'exhale' && 'animate-breath-exhale'
+                    "w-1/2 h-1/2 bg-primary/70 rounded-full",
+                    // Apply initial state style if not ready (e.g., scale(0.5))
+                    phase === 'ready' || phase === 'exhale' ? 'scale-[0.5] opacity-70' : 'scale-[1] opacity-100'
                  )}
                  style={{
-                     animationDuration: `${cycleDuration.inhale / 1000}s, ${cycleDuration.hold / 1000}s, ${cycleDuration.exhale / 1000}s`,
-                     animationPlayState: isAnimating ? 'running' : 'paused'
+                    // Inline styles are now primarily managed by the runCycle function setting animation property
+                    // Transition for smooth reset/initial state
+                    transition: phase === 'ready' ? 'transform 0.3s ease, opacity 0.3s ease' : 'none',
                  }}
              ></div>
            </div>
@@ -141,35 +166,15 @@ const BreathingExercise: FC = () => {
           </div>
         </CardContent>
       </Card>
-      {/* Keyframes defined globally or scoped needed for animation */}
+      {/* Keyframes defined globally needed for animation */}
       <style jsx global>{`
         @keyframes breath-inhale {
           from { transform: scale(0.5); opacity: 0.7; }
           to { transform: scale(1); opacity: 1; }
         }
-        /* Hold just maintains the 'to' state of inhale */
         @keyframes breath-exhale {
           from { transform: scale(1); opacity: 1; }
           to { transform: scale(0.5); opacity: 0.7; }
-        }
-        .animate-breath-inhale {
-          animation-name: breath-inhale;
-          animation-duration: ${cycleDuration.inhale / 1000}s;
-          animation-timing-function: ease-out;
-          animation-fill-mode: forwards;
-        }
-         .animate-breath-hold {
-           /* Keep the final state of inhale */
-           transform: scale(1);
-           opacity: 1;
-        }
-        .animate-breath-exhale {
-          animation-name: breath-exhale;
-          animation-duration: ${cycleDuration.exhale / 1000}s;
-          animation-timing-function: ease-in;
-          animation-fill-mode: forwards;
-          /* Start exhale animation after hold finishes */
-          animation-delay: 0s; /* Managed by JS timeout */
         }
       `}</style>
     </section>
@@ -177,5 +182,3 @@ const BreathingExercise: FC = () => {
 };
 
 export default BreathingExercise;
-
-```

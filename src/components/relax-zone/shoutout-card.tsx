@@ -55,4 +55,3 @@ const ShoutoutCard: FC<ShoutoutCardProps> = ({ shoutout }) => {
 };
 
 export default ShoutoutCard;
-```

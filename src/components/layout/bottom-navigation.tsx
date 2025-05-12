@@ -1,4 +1,3 @@
-
 // src/components/layout/bottom-navigation.tsx
 'use client';
 
@@ -54,4 +53,3 @@ export default function BottomNavigation() {
     </nav>
   );
 }
-
