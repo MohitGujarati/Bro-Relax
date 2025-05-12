@@ -1,15 +1,20 @@
 
-"use client"; // Add 'use client' directive
+"use client"; // This page uses client-side interactivity (state, effects, event handlers)
 
 import MemeWall from '@/components/relax-zone/meme-wall';
 import MotivationBox from '@/components/relax-zone/motivation-box';
 import CommunityShoutouts from '@/components/relax-zone/community-shoutouts';
-import MemeSubmissionForm from '@/components/relax-zone/meme-submission-form'; // Optional Bonus
+import MemeSubmissionForm from '@/components/relax-zone/meme-submission-form'; // Optional Bonus feature
 
+/**
+ * Renders the Zenith Zone page, a dedicated space for relaxation featuring
+ * memes, motivational quotes, community messages, and a music player.
+ */
 export default function RelaxZonePage() {
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary-foreground">
       <div className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        {/* Page Header */}
         <header className="text-center mb-12 animate-fadeIn">
           <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent-foreground/80">
             Zenith Zone
@@ -19,31 +24,38 @@ export default function RelaxZonePage() {
           </p>
         </header>
 
+        {/* Main Content Area */}
         <main className="max-w-5xl mx-auto space-y-16">
+          {/* Meme Wall Section */}
           <div className="animate-slideUp" style={{ animationDelay: '0.2s' }}>
             <MemeWall />
           </div>
           
+          {/* Motivation & Music Section */}
           <div className="animate-slideUp" style={{ animationDelay: '0.4s' }}>
             <MotivationBox />
           </div>
 
+          {/* Community Shoutouts Section */}
           <div className="animate-slideUp" style={{ animationDelay: '0.6s' }}>
             <CommunityShoutouts />
           </div>
           
-          {/* Optional Bonus Feature */}
+          {/* Optional Bonus: Meme Submission Form */}
           <div className="animate-slideUp" style={{ animationDelay: '0.8s' }}>
             <MemeSubmissionForm />
           </div>
         </main>
 
+        {/* Page Footer */}
         <footer className="text-center mt-20 py-8 border-t border-border">
           <p className="text-muted-foreground">
             &copy; {new Date().getFullYear()} Career Navigator. Keep shining.
           </p>
         </footer>
       </div>
+
+      {/* Global styles for entry animations (can be moved to globals.css if preferred) */}
       <style jsx global>{`
         @keyframes fadeIn {
           from { opacity: 0; }

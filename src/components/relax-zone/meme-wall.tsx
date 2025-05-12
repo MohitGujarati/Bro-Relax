@@ -1,9 +1,14 @@
-"use client";
+
+"use client"; // This component renders a list based on imported data, no server-specific logic needed.
 
 import type { FC } from 'react';
 import { memes } from '@/lib/relax-zone-constants';
 import MemeCard from './meme-card';
 
+/**
+ * Displays a grid of memes fetched from the constants file.
+ * It maps over the meme data and renders a MemeCard for each.
+ */
 const MemeWall: FC = () => {
   return (
     <section aria-labelledby="meme-wall-title">

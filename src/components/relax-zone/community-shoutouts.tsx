@@ -1,7 +1,8 @@
-"use client";
+
+"use client"; // Needs state for messages, form input, and uses hooks like useRef and useToast.
 
 import type { FC } from 'react';
-import { useState, useRef } from 'react';
+import { useState, useRef, FormEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { communityShoutouts as initialShoutouts, type Shoutout } from '@/lib/relax-zone-constants';
@@ -10,44 +11,60 @@ import { Send, Users } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
+/**
+ * Displays a list of community messages (shoutouts) and allows users
+ * to post their own messages. Manages the list of shoutouts in local state.
+ */
 const CommunityShoutouts: FC = () => {
+  // State to hold the list of shoutouts, initialized with data from constants
   const [shoutouts, setShoutouts] = useState<Shoutout[]>(initialShoutouts);
+  // State to hold the content of the new message input field
   const [newMessage, setNewMessage] = useState('');
+  // Hook to display notifications (toasts)
   const { toast } = useToast();
+  // Ref to access the textarea DOM element directly (e.g., for focusing)
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  const handlePostMessage = (e: React.FormEvent) => {
-    e.preventDefault();
+  // Handles the submission of the new message form
+  const handlePostMessage = (e: FormEvent) => {
+    e.preventDefault(); // Prevent default form submission behavior (page reload)
+
+    // Basic validation: check if the message is empty
     if (newMessage.trim() === '') {
       toast({
         title: "Empty Message",
         description: "Please write something to post.",
-        variant: "destructive",
+        variant: "destructive", // Use destructive variant for errors
       });
-      return;
+      return; // Stop execution if message is empty
     }
 
+    // Create a new shoutout object
     const newShoutout: Shoutout = {
-      id: `shoutout-${Date.now()}`,
-      user: 'You',
-      avatarFallback: '😊',
+      id: `shoutout-${Date.now()}`, // Generate a simple unique ID
+      user: 'You', // Placeholder for the current user
+      avatarFallback: '😊', // Placeholder avatar
       message: newMessage,
-      timestamp: 'Just now',
+      timestamp: 'Just now', // Placeholder timestamp
     };
 
-    setShoutouts([newShoutout, ...shoutouts]);
+    // Update the shoutouts state: add the new shoutout to the beginning of the list
+    // This uses functional update form of setState for potentially better performance with rapid updates
+    setShoutouts(prevShoutouts => [newShoutout, ...prevShoutouts]);
+    // Clear the input field
     setNewMessage('');
+    // Show a success toast
     toast({
       title: "Shoutout Posted!",
       description: "Your message is now live in the community.",
     });
-    if (textareaRef.current) {
-      textareaRef.current.focus();
-    }
+    // Optionally, focus the textarea again after posting
+    textareaRef.current?.focus();
   };
 
   return (
     <section aria-labelledby="community-shoutouts-title">
+      {/* Section Header */}
       <div className="text-center mb-8">
         <h2 id="community-shoutouts-title" className="text-3xl font-semibold tracking-tight text-accent-foreground flex items-center justify-center gap-2">
           <Users className="h-8 w-8 text-accent" /> Community Shoutouts
@@ -55,31 +72,37 @@ const CommunityShoutouts: FC = () => {
         <p className="mt-2 text-lg text-muted-foreground">Share some positivity, read uplifting messages.</p>
       </div>
 
+      {/* Main content container */}
       <div className="bg-background p-6 rounded-lg shadow-lg border border-border">
+        {/* New Message Form */}
         <form onSubmit={handlePostMessage} className="mb-8 space-y-4">
           <Textarea
-            ref={textareaRef}
+            ref={textareaRef} // Attach the ref to the textarea
             value={newMessage}
-            onChange={(e) => setNewMessage(e.target.value)}
+            onChange={(e) => setNewMessage(e.target.value)} // Update state on input change
             placeholder="Share a motivational message or positive thought..."
-            className="min-h-[100px] focus:ring-primary"
+            className="min-h-[100px] focus:ring-primary focus-visible:ring-primary" // Ensure focus ring uses primary color
             aria-label="New shoutout message"
+            rows={3} // Suggest a reasonable initial height
           />
           <Button type="submit" className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
             <Send className="h-4 w-4 mr-2" /> Post Message
           </Button>
         </form>
 
+        {/* Display Area for Shoutouts */}
         <h3 className="text-xl font-medium mb-4 text-muted-foreground">Latest Shoutouts:</h3>
         {shoutouts.length > 0 ? (
-          <ScrollArea className="h-[400px] pr-4 -mr-4"> {/* Added pr-4 and -mr-4 to compensate for scrollbar */}
-            <div className="space-y-4">
+          // Use ScrollArea for potentially long lists of shoutouts
+          <ScrollArea className="h-[400px] pr-4 -mr-4 border rounded-md"> {/* Added border for visual clarity */}
+            <div className="space-y-4 p-4"> {/* Added padding inside scroll area */}
               {shoutouts.map((shoutout) => (
                 <ShoutoutCard key={shoutout.id} shoutout={shoutout} />
               ))}
             </div>
           </ScrollArea>
         ) : (
+          // Message displayed when there are no shoutouts
           <p className="text-muted-foreground text-center py-4">No shoutouts yet. Be the first to post!</p>
         )}
       </div>

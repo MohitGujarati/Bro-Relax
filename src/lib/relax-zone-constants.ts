@@ -1,17 +1,29 @@
+
+/**
+ * @fileoverview Defines constants and types used in the Relax Zone feature.
+ * This includes sample data for memes, quotes, and community shoutouts.
+ */
+
+/**
+ * Interface defining the structure for a Meme object.
+ */
 export interface Meme {
-  id: string;
-  imageUrl: string;
-  altText: string;
-  dataAiHint: string;
-  initialLikes: number;
-  initialDislikes: number;
+  id: string;             // Unique identifier for the meme
+  imageUrl: string;       // URL of the meme image
+  altText: string;        // Alt text for accessibility
+  dataAiHint: string;     // Keywords for AI image search/generation (max 2 words)
+  initialLikes: number;   // Starting number of likes
+  initialDislikes: number;// Starting number of dislikes
 }
 
+/**
+ * An array of sample Meme objects used to populate the Meme Wall.
+ */
 export const memes: Meme[] = [
   {
     id: 'meme1',
     imageUrl: 'https://picsum.photos/seed/jobhunt/600/400',
-    altText: 'Funny meme about job hunting',
+    altText: 'Funny meme about job hunting stress',
     dataAiHint: 'job hunting',
     initialLikes: 15,
     initialDislikes: 2,
@@ -19,7 +31,7 @@ export const memes: Meme[] = [
   {
     id: 'meme2',
     imageUrl: 'https://picsum.photos/seed/workcat/600/400',
-    altText: 'Cat working on a laptop meme',
+    altText: 'Cat looking tired while working on a laptop meme',
     dataAiHint: 'cat work',
     initialLikes: 22,
     initialDislikes: 1,
@@ -27,7 +39,7 @@ export const memes: Meme[] = [
   {
     id: 'meme3',
     imageUrl: 'https://picsum.photos/seed/coffee/600/400',
-    altText: 'Meme about needing coffee',
+    altText: 'Illustration showing stages of programmer needing coffee',
     dataAiHint: 'coffee programming',
     initialLikes: 30,
     initialDislikes: 0,
@@ -35,13 +47,16 @@ export const memes: Meme[] = [
   {
     id: 'meme4',
     imageUrl: 'https://picsum.photos/seed/relax/600/400',
-    altText: 'Meme about relaxation',
+    altText: 'Person relaxing peacefully in a hammock meme style',
     dataAiHint: 'relax chill',
     initialLikes: 18,
     initialDislikes: 3,
   },
 ];
 
+/**
+ * An array of motivational quotes for display.
+ */
 export const motivationalQuotes: string[] = [
   "The only way to do great work is to love what you do. - Steve Jobs",
   "Believe you can and you're halfway there. - Theodore Roosevelt",
@@ -55,14 +70,20 @@ export const motivationalQuotes: string[] = [
   "Wake up with determination. Go to bed with satisfaction."
 ];
 
+/**
+ * Interface defining the structure for a Community Shoutout object.
+ */
 export interface Shoutout {
-  id: string;
-  user: string;
-  avatarFallback: string;
-  message: string;
-  timestamp: string;
+  id: string;             // Unique identifier for the shoutout
+  user: string;           // Name of the user posting the shoutout
+  avatarFallback: string; // Fallback text/initials for the avatar
+  message: string;        // The content of the shoutout message
+  timestamp: string;      // Relative time when the shoutout was posted (e.g., "2 hours ago")
 }
 
+/**
+ * An array of sample Shoutout objects used to populate the Community Shoutouts section.
+ */
 export const communityShoutouts: Shoutout[] = [
   {
     id: 'shoutout1',
@@ -101,4 +122,8 @@ export const communityShoutouts: Shoutout[] = [
   },
 ];
 
-export const relaxingMusicUrl = "https://www.youtube.com/embed/5qap5aO4i9A?autoplay=0&mute=1"; // Generic relaxing music, muted by default
+/**
+ * The URL for the embedded relaxing music player (YouTube video).
+ * Includes parameters to prevent autoplay and start muted.
+ */
+export const relaxingMusicUrl = "https://www.youtube.com/embed/5qap5aO4i9A?autoplay=0&mute=1";
