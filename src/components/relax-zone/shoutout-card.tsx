@@ -10,31 +10,30 @@ interface ShoutoutCardProps {
 }
 
 /**
- * Displays a single community shoutout message in a card-like format,
- * optimized for a feed layout.
+ * Displays a single community shoutout message in a minimal format
+ * optimized for the feed layout.
  */
 const ShoutoutCard: FC<ShoutoutCardProps> = ({ shoutout }) => {
   return (
-    // Use a simple div structure, styling handled by parent container usually
-    // Added subtle hover effect and padding
-    <div className="bg-card text-card-foreground p-4 rounded-lg shadow-sm border border-border hover:shadow-md transition-shadow duration-200">
-      <div className="flex items-start space-x-3">
-        {/* User Avatar */}
-        <Avatar className="h-8 w-8 text-xs border border-border/50">
+    // Minimal styling: subtle background, border, less padding
+    <div className="bg-card/70 text-card-foreground p-3 rounded-md shadow-none border border-border/30 hover:bg-accent/20 transition-colors duration-200">
+      <div className="flex items-start space-x-2.5">
+        {/* User Avatar - Smaller */}
+        <Avatar className="h-7 w-7 text-xs border border-border/30">
            {/* Optional: Add AvatarImage if URLs are available */}
            {/* <AvatarImage src={shoutout.avatarUrl} alt={`${shoutout.user}'s avatar`} /> */}
-          <AvatarFallback className="bg-muted text-muted-foreground font-medium">
-            {shoutout.avatarFallback || shoutout.user.charAt(0)} {/* Improved fallback */}
+          <AvatarFallback className="bg-muted/50 text-muted-foreground font-medium"> {/* Subtle fallback bg */}
+            {shoutout.avatarFallback || shoutout.user.charAt(0)}
           </AvatarFallback>
         </Avatar>
         {/* User Info & Message */}
         <div className="flex-1">
           <div className="flex items-baseline justify-between">
-            <p className="text-sm font-semibold text-foreground">{shoutout.user}</p>
-            <p className="text-xs text-muted-foreground">{shoutout.timestamp}</p>
+            <p className="text-xs font-medium text-foreground/90">{shoutout.user}</p> {/* Slightly less emphasis */}
+            <p className="text-[11px] text-muted-foreground">{shoutout.timestamp}</p> {/* Even smaller timestamp */}
           </div>
           {/* Message Content */}
-          <p className="mt-1 text-sm text-foreground/90 leading-snug whitespace-pre-wrap break-words"> {/* Ensure line breaks are respected */}
+          <p className="mt-1 text-sm text-foreground/95 leading-snug whitespace-pre-wrap break-words"> {/* Ensure line breaks are respected */}
             {shoutout.message}
           </p>
         </div>

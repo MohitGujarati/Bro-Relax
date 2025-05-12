@@ -6,11 +6,11 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { motivationalQuotes } from '@/lib/relax-zone-constants';
-import { Quote, RefreshCw, Sparkles } from 'lucide-react'; // Changed icon
+import { Quote, RefreshCw, Sparkles } from 'lucide-react';
 
 /**
- * Displays a random motivational quote in a card format.
- * Simplified to focus on quotes for better feed integration.
+ * Displays a random motivational quote in a minimal card format.
+ * Music player removed for simplicity and minimal design.
  */
 const MotivationBox: FC = () => {
   // State to hold the currently displayed quote
@@ -31,30 +31,39 @@ const MotivationBox: FC = () => {
 
   return (
     <section aria-labelledby="motivation-box-title">
-      <Card className="shadow-lg bg-card border-border overflow-hidden">
-        <CardHeader className="pb-4">
-          {/* Updated title styling for a cleaner look */}
-          <CardTitle id="motivation-box-title" className="text-xl font-semibold tracking-tight text-foreground flex items-center gap-2">
-             <Sparkles className="h-5 w-5 text-primary" /> A Moment of Motivation
+      {/* Minimal card styling */}
+      <Card className="bg-card border border-border/50 shadow-sm">
+        <CardHeader className="pb-3 pt-4"> {/* Adjusted padding */}
+          <CardTitle id="motivation-box-title" className="text-lg font-medium tracking-tight text-foreground flex items-center gap-2"> {/* Adjusted size */}
+             <Sparkles className="h-5 w-5 text-muted-foreground" /> {/* Muted icon color */}
+             Motivation Moment
           </CardTitle>
         </CardHeader>
-        <CardContent className="space-y-4 p-6 pt-0">
-          {/* Quote Display Area - Adjusted styling */}
-          <div className="text-center p-4 bg-secondary/30 rounded-lg shadow-inner min-h-[100px] flex flex-col justify-center items-center border border-border/50">
-            <Quote className="h-6 w-6 text-primary mb-3 opacity-70 transform -scale-x-100" /> {/* Flipped quote icon */}
+        <CardContent className="space-y-4 px-5 pb-5 pt-0"> {/* Adjusted padding */}
+          {/* Quote Display Area - Minimal styling */}
+          <div className="text-center p-4 bg-secondary/30 rounded-md min-h-[90px] flex flex-col justify-center items-center border border-border/20 shadow-inner">
+            <Quote className="h-5 w-5 text-muted-foreground mb-2 opacity-70 transform -scale-x-100" /> {/* Smaller icon */}
             {quote ? (
-              <p className="text-lg italic text-foreground leading-relaxed">"{quote}"</p>
+              <p className="text-base italic text-foreground/90 leading-relaxed">"{quote}"</p> // Slightly smaller text
             ) : (
               // Placeholder while the quote is loading initially
-              <p className="text-lg italic text-muted-foreground">Loading inspiration...</p>
+              <p className="text-base italic text-muted-foreground">Loading inspiration...</p>
             )}
           </div>
-          {/* Button to fetch a new random quote - Adjusted styling */}
-           <div className="flex justify-center">
-             <Button variant="outline" size="sm" onClick={getRandomQuote} className="mt-2 text-primary border-primary/50 hover:bg-primary/10 hover:text-primary">
-                <RefreshCw className="h-4 w-4 mr-2" /> Another Quote
+          {/* Button to fetch a new random quote - Minimal outline style */}
+           <div className="flex justify-center pt-1">
+             <Button
+                variant="outline"
+                size="sm"
+                onClick={getRandomQuote}
+                className="text-foreground border-border/50 hover:bg-accent/50 hover:text-foreground" // Minimal outline button
+             >
+                <RefreshCw className="h-4 w-4 mr-1.5" /> Another Quote
               </Button>
             </div>
+
+            {/* Removed Music Player Section */}
+
         </CardContent>
       </Card>
     </section>

@@ -4,36 +4,36 @@
 
 @layer base {
   :root {
-    /* Light Theme - Black & White Minimal */
+    /* Light Theme - Minimal Black & White */
     --background: 0 0% 100%; /* White */
-    --foreground: 0 0% 10%; /* Near Black */
+    --foreground: 0 0% 5%; /* Near Black */
 
     --card: 0 0% 98%; /* Very Light Gray */
-    --card-foreground: 0 0% 15%; /* Dark Gray */
+    --card-foreground: 0 0% 5%; /* Near Black */
 
     --popover: 0 0% 100%; /* White */
-    --popover-foreground: 0 0% 10%; /* Near Black */
+    --popover-foreground: 0 0% 5%; /* Near Black */
 
     --primary: 0 0% 9%; /* Black */
-    --primary-foreground: 0 0% 98%; /* Very Light Gray (for text on primary) */
+    --primary-foreground: 0 0% 98%; /* White */
 
-    --secondary: 0 0% 94%; /* Light Gray */
-    --secondary-foreground: 0 0% 9%; /* Black (for text on secondary) */
+    --secondary: 0 0% 94%; /* Light Gray (#F0F0F0) */
+    --secondary-foreground: 0 0% 9%; /* Black */
 
-    --muted: 0 0% 90%; /* Slightly Darker Light Gray */
-    --muted-foreground: 0 0% 40%; /* Medium Gray */
+    --muted: 0 0% 90%; /* Lighter Gray (#E6E6E6) */
+    --muted-foreground: 0 0% 40%; /* Medium Gray (#666666) */
 
-    --accent: 0 0% 90%; /* Slightly Darker Light Gray (for interactive elements) */
-    --accent-foreground: 0 0% 9%; /* Black (for text on accent) */
+    --accent: 0 0% 90%; /* Lighter Gray (#E6E6E6) */
+    --accent-foreground: 0 0% 9%; /* Black */
 
-    --destructive: 0 84.2% 60.2%; /* Default Destructive Red */
-    --destructive-foreground: 0 0% 98%; /* Light text for destructive */
+    --destructive: 0 84.2% 60.2%; /* Default Red */
+    --destructive-foreground: 0 0% 98%; /* Light text */
 
-    --border: 0 0% 85%; /* Light Gray Border */
-    --input: 0 0% 92%; /* Light Gray Input Background */
-    --ring: 0 0% 60%; /* Medium Gray Ring */
+    --border: 0 0% 87%; /* Light Gray Border (#DDDDDD) */
+    --input: 0 0% 95%; /* Very Light Gray Input (#F2F2F2) */
+    --ring: 0 0% 15%; /* Dark Gray Ring */
 
-    --chart-1: 0 0% 40%; /* Grey Tones for Charts */
+    --chart-1: 0 0% 40%;
     --chart-2: 0 0% 60%;
     --chart-3: 0 0% 20%;
     --chart-4: 0 0% 75%;
@@ -41,62 +41,62 @@
 
     --radius: 0.5rem;
 
-    /* Sidebar specific adjustments if needed */
-    --sidebar-background: 0 0% 98%; /* Very Light Gray */
-    --sidebar-foreground: 0 0% 10%; /* Near Black */
-    --sidebar-primary: 0 0% 9%; /* Black */
-    --sidebar-primary-foreground: 0 0% 98%; /* Very Light Gray */
-    --sidebar-accent: 0 0% 90%; /* Slightly Darker Light Gray */
-    --sidebar-accent-foreground: 0 0% 9%; /* Black */
-    --sidebar-border: 0 0% 85%; /* Light Gray Border */
-    --sidebar-ring: 0 0% 60%; /* Medium Gray Ring */
+    /* Sidebar specific adjustments if needed - inherit from main theme */
+    --sidebar-background: var(--background);
+    --sidebar-foreground: var(--foreground);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: var(--accent);
+    --sidebar-accent-foreground: var(--accent-foreground);
+    --sidebar-border: var(--border);
+    --sidebar-ring: var(--ring);
   }
 
   .dark {
-    /* Dark Theme - Black & White Minimal */
-    --background: 0 0% 10%; /* Near Black */
-    --foreground: 0 0% 98%; /* Very Light Gray */
+    /* Dark Theme - Minimal Black & White (Default) */
+    --background: 0 0% 0%; /* Black */
+    --foreground: 0 0% 95%; /* Near White */
 
-    --card: 0 0% 15%; /* Dark Gray */
-    --card-foreground: 0 0% 95%; /* Light Gray text */
+    --card: 0 0% 7%; /* Very Dark Gray (#121212) */
+    --card-foreground: 0 0% 95%; /* Near White */
 
-    --popover: 0 0% 10%; /* Near Black */
-    --popover-foreground: 0 0% 98%; /* Very Light Gray */
+    --popover: 0 0% 5%; /* Slightly darker gray */
+    --popover-foreground: 0 0% 95%; /* Near White */
 
-    --primary: 0 0% 98%; /* Very Light Gray (almost white) */
-    --primary-foreground: 0 0% 9%; /* Black (for text on primary) */
+    --primary: 0 0% 98%; /* White/Very Light Gray */
+    --primary-foreground: 0 0% 9%; /* Black */
 
-    --secondary: 0 0% 25%; /* Darker Gray */
-    --secondary-foreground: 0 0% 98%; /* Very Light Gray (for text on secondary) */
+    --secondary: 0 0% 13%; /* Dark Gray (#222222) */
+    --secondary-foreground: 0 0% 98%; /* Very Light Gray */
 
-    --muted: 0 0% 20%; /* Dark Gray */
-    --muted-foreground: 0 0% 70%; /* Medium-Light Gray */
+    --muted: 0 0% 15%; /* Darker Gray (#262626) */
+    --muted-foreground: 0 0% 65%; /* Medium Gray (#A6A6A6) */
 
-    --accent: 0 0% 30%; /* Medium Dark Gray (for interactive elements) */
-    --accent-foreground: 0 0% 98%; /* Very Light Gray (for text on accent) */
+    --accent: 0 0% 20%; /* Medium Dark Gray (#333333) - for hover/focus */
+    --accent-foreground: 0 0% 98%; /* Very Light Gray */
 
-    --destructive: 0 70% 50%; /* Slightly darker Destructive Red for dark mode */
-    --destructive-foreground: 0 0% 98%; /* Light text for destructive */
+    --destructive: 0 62.8% 30.6%; /* Darker Red */
+    --destructive-foreground: 0 0% 98%; /* Light text */
 
-    --border: 0 0% 25%; /* Dark Gray Border */
-    --input: 0 0% 22%; /* Dark Gray Input Background */
-    --ring: 0 0% 50%; /* Medium Gray Ring */
+    --border: 0 0% 27%; /* Medium Gray Border (#444444) */
+    --input: 0 0% 10%; /* Dark Gray Input (#1A1A1A) */
+    --ring: 0 0% 80%; /* Light Gray Ring */
 
-    --chart-1: 0 0% 70%; /* Lighter Grey Tones for Charts in Dark Mode */
+    --chart-1: 0 0% 70%;
     --chart-2: 0 0% 50%;
     --chart-3: 0 0% 90%;
     --chart-4: 0 0% 40%;
     --chart-5: 0 0% 60%;
 
-    /* Dark sidebar colors */
-    --sidebar-background: 0 0% 10%; /* Near Black */
-    --sidebar-foreground: 0 0% 98%; /* Very Light Gray */
-    --sidebar-primary: 0 0% 98%; /* Very Light Gray */
-    --sidebar-primary-foreground: 0 0% 9%; /* Black */
-    --sidebar-accent: 0 0% 30%; /* Medium Dark Gray */
-    --sidebar-accent-foreground: 0 0% 98%; /* Very Light Gray */
-    --sidebar-border: 0 0% 25%; /* Dark Gray Border */
-    --sidebar-ring: 0 0% 50%; /* Medium Gray Ring */
+    /* Dark sidebar colors - inherit from main theme */
+    --sidebar-background: var(--background);
+    --sidebar-foreground: var(--foreground);
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: var(--accent);
+    --sidebar-accent-foreground: var(--accent-foreground);
+    --sidebar-border: var(--border);
+    --sidebar-ring: var(--ring);
   }
 }
 
@@ -106,5 +106,32 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Apply dark theme by default */
+    @apply dark;
+  }
+  /* Add subtle focus state */
+  *:focus-visible {
+     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+  /* Smooth transitions */
+  * {
+     @apply transition-colors duration-200 ease-in-out;
   }
 }
+
+/* Minimal scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--background));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted));
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+

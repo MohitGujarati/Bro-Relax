@@ -14,7 +14,7 @@ interface MemeCardProps {
 }
 
 /**
- * Displays a single meme with like/dislike buttons, styled like a social media post card.
+ * Displays a single meme with like/dislike buttons, styled minimally.
  * Manages its own like/dislike state.
  */
 const MemeCard: FC<MemeCardProps> = ({ meme }) => {
@@ -56,50 +56,46 @@ const MemeCard: FC<MemeCardProps> = ({ meme }) => {
   };
 
   return (
-    // Adjusted card styling for feed layout
-    <Card className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-card border border-border">
+    // Minimal card styling: subtle border, very light shadow on hover maybe
+    <Card className="overflow-hidden bg-card border border-border/50 shadow-sm hover:shadow-md transition-shadow duration-300">
       <CardContent className="p-0">
-        {/* Image container with adjusted aspect ratio */}
-        <div className="aspect-w-1 aspect-h-1 sm:aspect-w-4 sm:aspect-h-3 relative bg-muted/30"> {/* Adjusted aspect ratio */}
+        {/* Image container */}
+        <div className="aspect-w-1 aspect-h-1 relative bg-muted/10"> {/* Subtle bg */}
           <Image
             src={meme.imageUrl}
             alt={meme.altText}
-            fill // Use fill
-            style={{ objectFit: 'contain' }} // Changed to contain to show whole meme
-            sizes="(max-width: 640px) 90vw, 500px" // Adjusted sizes
-            priority={meme.id === 'meme1'} // Prioritize loading the first meme
+            fill
+            style={{ objectFit: 'contain' }}
+            sizes="(max-width: 640px) 90vw, 500px"
+            priority={meme.id === 'meme1'}
             data-ai-hint={meme.dataAiHint}
-            className="rounded-t-lg" // Ensure image corners match card if needed
+            className="rounded-t-lg" // Remove if card has no rounding or border radius
           />
         </div>
       </CardContent>
       {/* Footer with interaction buttons */}
       <CardFooter className="py-2 px-3 flex justify-start items-center bg-card">
-        <div className="flex gap-1.5">
-          {/* Like Button - More subtle styling */}
+        <div className="flex gap-1"> {/* Reduced gap */}
+          {/* Like Button - Minimal Ghost style */}
           <Button
-            variant="ghost" // Ghost variant for less emphasis
+            variant="ghost"
             size="sm"
             onClick={handleLike}
-            className={`flex items-center gap-1 px-2 transition-colors rounded-md ${
-              liked
-                ? 'text-primary bg-primary/10 hover:bg-primary/20'
-                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            className={`flex items-center gap-1 px-1.5 rounded-md transition-colors text-muted-foreground hover:text-foreground hover:bg-accent/50 ${
+              liked ? 'text-foreground bg-accent/30' : '' // Subtle active state
             }`}
             aria-label={`Like meme. Current likes: ${likes}`}
           >
             <ThumbsUp className={`h-4 w-4 ${liked ? 'fill-current' : ''}`} /> {/* Conditional fill */}
             <span className="text-xs font-medium">{likes}</span>
           </Button>
-          {/* Dislike Button - More subtle styling */}
+          {/* Dislike Button - Minimal Ghost style */}
           <Button
             variant="ghost"
             size="sm"
             onClick={handleDislike}
-             className={`flex items-center gap-1 px-2 transition-colors rounded-md ${
-              disliked
-                ? 'text-destructive bg-destructive/10 hover:bg-destructive/20'
-                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+             className={`flex items-center gap-1 px-1.5 rounded-md transition-colors text-muted-foreground hover:text-foreground hover:bg-accent/50 ${
+              disliked ? 'text-foreground bg-accent/30' : '' // Subtle active state
             }`}
             aria-label={`Dislike meme. Current dislikes: ${dislikes}`}
           >
@@ -107,7 +103,6 @@ const MemeCard: FC<MemeCardProps> = ({ meme }) => {
             <span className="text-xs font-medium">{dislikes}</span>
           </Button>
         </div>
-        {/* Placeholder for comments or share icon if needed later */}
       </CardFooter>
     </Card>
   );

@@ -11,7 +11,7 @@ import { UploadCloud, ImagePlus } from 'lucide-react';
 
 /**
  * Provides a form for users to (simulate) uploading their own meme images.
- * Styled as a prominent card in the feed layout.
+ * Styled minimally for the feed layout.
  * NOTE: The actual upload functionality is not implemented, this is frontend only.
  */
 const MemeSubmissionForm: FC = () => {
@@ -100,21 +100,22 @@ const MemeSubmissionForm: FC = () => {
 
 
   return (
-    // Use Card component for structure, removed dashed border
-    <Card className="shadow-md bg-card border border-border">
-        <CardHeader>
-           {/* Icon centered above title */}
-           <div className="flex justify-center items-center mb-3">
-            <ImagePlus className="h-8 w-8 text-primary" />
+    // Minimal card styling: subtle border, no strong shadow
+    <Card className="bg-card border border-border/50 shadow-sm">
+        <CardHeader className="pb-4 pt-5"> {/* Adjusted padding */}
+           {/* Icon centered */}
+           <div className="flex justify-center items-center mb-2">
+            <ImagePlus className="h-6 w-6 text-muted-foreground" /> {/* Muted icon color */}
           </div>
-          <CardTitle className="text-xl font-semibold tracking-tight text-center">
+          <CardTitle className="text-lg font-medium tracking-tight text-center"> {/* Adjusted size */}
             Share a Meme
           </CardTitle>
-          <CardDescription className="text-center text-sm text-muted-foreground pt-1">
+          {/* Optional: Removed description for more minimal look */}
+          {/* <CardDescription className="text-center text-sm text-muted-foreground pt-1">
             Upload an image to share with the community.
-          </CardDescription>
+          </CardDescription> */}
         </CardHeader>
-        <CardContent>
+        <CardContent className="pt-0 pb-5"> {/* Adjusted padding */}
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* File Input */}
             <div>
@@ -122,10 +123,11 @@ const MemeSubmissionForm: FC = () => {
               <Input
                 id="memeFile"
                 type="file"
-                accept="image/jpeg, image/png, image/gif, image/webp" // Be more specific
+                accept="image/jpeg, image/png, image/gif, image/webp"
                 onChange={handleFileChange}
-                ref={fileInputRef} // Attach ref
-                className="w-full text-sm file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-medium file:bg-primary/10 file:text-primary hover:file:bg-primary/20 cursor-pointer bg-input border-border text-foreground focus-visible:ring-primary"
+                ref={fileInputRef}
+                // Minimal input style
+                className="w-full text-sm bg-input border-border/70 text-foreground focus-visible:ring-primary/50 file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-medium file:bg-secondary file:text-secondary-foreground hover:file:bg-secondary/80 cursor-pointer"
                 aria-describedby="file-constraints"
               />
                <p id="file-constraints" className="text-xs text-muted-foreground mt-1.5 px-1">Supports JPG, PNG, GIF, WEBP.</p>
@@ -133,21 +135,22 @@ const MemeSubmissionForm: FC = () => {
 
             {/* Image Preview */}
             {previewUrl && (
-              <div className="mt-4 border border-border rounded-lg p-3 bg-muted/20 flex justify-center">
+              <div className="mt-3 border border-border/30 rounded-md p-2 bg-black/10 flex justify-center"> {/* Subtle preview bg */}
                 {/* Using standard img tag for preview from Object URL */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                     src={previewUrl}
                     alt="Meme preview"
-                    className="max-w-full max-h-48 h-auto rounded-md object-contain shadow-sm" // Adjusted preview size
+                    className="max-w-full max-h-40 h-auto rounded object-contain" // Smaller preview
                  />
               </div>
             )}
 
-            {/* Submit Button - Centered */}
-             <div className="flex justify-end pt-2">
-                <Button type="submit" className="bg-primary text-primary-foreground hover:bg-primary/90" disabled={!selectedFile}>
-                  <UploadCloud className="h-4 w-4 mr-2" /> Submit
+            {/* Submit Button - Right aligned */}
+             <div className="flex justify-end pt-1">
+                 {/* Button uses theme colors */}
+                <Button type="submit" size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90" disabled={!selectedFile}>
+                  <UploadCloud className="h-4 w-4 mr-1.5" /> Submit
                 </Button>
               </div>
           </form>

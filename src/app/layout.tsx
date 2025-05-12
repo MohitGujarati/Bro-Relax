@@ -10,8 +10,8 @@ const geistSans = GeistSans;
 const geistMono = GeistSans;
 
 export const metadata: Metadata = {
-  title: 'Career Navigator', // Updated Title
-  description: 'Your AI-powered guide to navigating the job market, with a space to relax.', // Updated description
+  title: 'Zenith Zone', // Updated Title
+  description: 'Your space to relax and recharge.', // Updated description
 };
 
 export default function RootLayout({
@@ -20,7 +20,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    // Add 'dark' class here to default to dark mode
+    <html lang="en" className="dark">
       {/* Applied geistSans variable only */}
       <body className={`${geistSans.variable} font-sans antialiased bg-background text-foreground`}> {/* Ensure base styles apply */}
         {children}
