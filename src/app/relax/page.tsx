@@ -1,3 +1,6 @@
+
+"use client"; // Add 'use client' directive
+
 import MemeWall from '@/components/relax-zone/meme-wall';
 import MotivationBox from '@/components/relax-zone/motivation-box';
 import CommunityShoutouts from '@/components/relax-zone/community-shoutouts';
