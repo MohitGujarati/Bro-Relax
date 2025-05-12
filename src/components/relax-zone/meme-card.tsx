@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton
 import type { Meme } from '@/lib/relax-zone-constants';
+import { cn } from '@/lib/utils'; // Import cn
 
 interface MemeCardProps {
   meme: Meme;
@@ -137,5 +138,3 @@ const MemeCard: FC<MemeCardProps> = ({ meme }) => {
 };
 
 export default MemeCard;
-
-```
