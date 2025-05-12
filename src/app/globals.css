@@ -2,51 +2,49 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Add global font import for Inter */
+/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap'); */
+/* This is handled by next/font in layout.tsx, so explicit import here is not strictly necessary and can cause ordering issues. */
+
 @layer base {
   :root {
-    /* Primary: Soothing Blue (#B0E2FF) */
-    --background-hsl: 200 100% 90.6%; /* HSL for #B0E2FF */
-    --foreground-hsl: 210 10% 23%; /* Darker Blue/Gray for text */
+    /* Default theme (effectively light, will be overridden by .dark) */
+    --background-hsl: 0 0% 100%; /* White */
+    --foreground-hsl: 0 0% 3.9%; /* Near Black */
     
-    /* Card Background: Slightly lighter than primary for depth, or a very light neutral */
-    --card-hsl: 200 100% 95%; /* Lighter shade of Soothing Blue */
-    --card-foreground-hsl: 210 10% 23%;
+    --card-hsl: 0 0% 100%;
+    --card-foreground-hsl: 0 0% 3.9%;
 
-    /* Popover: Similar to Card or a bit more distinct */
-    --popover-hsl: 200 100% 95%;
-    --popover-foreground-hsl: 210 10% 23%;
+    --popover-hsl: 0 0% 100%;
+    --popover-foreground-hsl: 0 0% 3.9%;
 
-    /* Primary Interactive Elements: Could be a slightly darker shade of blue or a contrasting color from palette */
-    --primary-hsl: 195 80% 75%; /* Slightly darker/more saturated blue */
-    --primary-foreground-hsl: 210 20% 15%; /* Dark text for primary elements */
+    --primary-hsl: 0 0% 9%; /* Near Black */
+    --primary-foreground-hsl: 0 0% 98%; /* Off-White */
     
-    /* Secondary Colors: Light Green (#90EE90) & Pale Yellow (#FAFAD2) */
-    --secondary-hsl: 120 73% 75%; /* HSL for #90EE90 (Light Green) */
-    --secondary-foreground-hsl: 120 25% 25%; /* Dark green text */
+    --secondary-hsl: 0 0% 96.1%; /* Light Gray */
+    --secondary-foreground-hsl: 0 0% 9%; /* Near Black */
 
-    /* Muted: For less prominent elements, can use shades of primary or neutrals */
-    --muted-hsl: 200 50% 85%; /* Muted blue */
-    --muted-foreground-hsl: 210 10% 40%; /* Softer text color */
+    --muted-hsl: 0 0% 96.1%;
+    --muted-foreground-hsl: 0 0% 45.1%; /* Medium Gray */
 
-    /* Accent: Soft Lavender (#E6E6FA) */
-    --accent-hsl: 240 67% 94%; /* HSL for #E6E6FA */
-    --accent-foreground-hsl: 240 20% 30%; /* Dark lavender text */
+    --accent-hsl: 0 0% 96.1%;
+    --accent-foreground-hsl: 0 0% 9%;
 
-    --destructive-hsl: 0 84.2% 60.2%; /* Default Red */
-    --destructive-foreground-hsl: 0 0% 100%;
+    --destructive-hsl: 0 84.2% 60.2%; /* Red */
+    --destructive-foreground-hsl: 0 0% 98%;
 
-    --border-hsl: 200 30% 80%; /* Border color, related to primary */
-    --input-hsl: 200 30% 92%; /* Input background, light and subtle */
-    --ring-hsl: 195 80% 70%; /* Ring color for focus, related to primary interactive */
+    --border-hsl: 0 0% 89.8%;
+    --input-hsl: 0 0% 89.8%;
+    --ring-hsl: 0 0% 3.9%;
 
-    --radius: 0.75rem; /* Slightly more rounded corners */
+    --radius: 0.5rem; /* Consistent, slightly subdued rounding */
 
-    /* Chart colors (example, adjust as needed for visibility on light theme) */
-    --chart-1: 200 70% 60%;
-    --chart-2: 120 60% 60%;
-    --chart-3: 60 70% 70%; /* Pale Yellow related */
-    --chart-4: 240 50% 75%; /* Lavender related */
-    --chart-5: 210 60% 65%;
+    /* Chart colors (light theme examples) */
+    --chart-1: 200 70% 50%;
+    --chart-2: 120 60% 45%;
+    --chart-3: 60 70% 55%;
+    --chart-4: 240 50% 60%;
+    --chart-5: 210 60% 50%;
 
     /* Converted to HSL values for ShadCN */
     --background: var(--background-hsl);
@@ -70,43 +68,53 @@
     --ring: var(--ring-hsl);
   }
 
-  /* Dark theme (optional, can be removed if default is light) */
   .dark {
-    /* For a dark theme, we invert or choose darker shades */
-    --background-hsl: 210 20% 12%; /* Dark Blue/Gray */
-    --foreground-hsl: 200 100% 90.6%; /* Soothing Blue as text */
+    /* Minimal Black & White Glassmorphism Theme */
+    --background-hsl: 0 0% 2%; /* Near Black - Opaque base for the page */
+    --foreground-hsl: 0 0% 95%;   /* Light Gray/Off-White for text */
+
+    /* Glassmorphic Elements: Card, Popover, Dialog */
+    /* These will need backdrop-blur applied via utility classes or in base component styles */
+    --card-hsl: 0 0% 12% / 0.65; /* Dark Gray, semi-transparent for cards */
+    --card-foreground-hsl: 0 0% 92%; /* Light Gray/Off-White text on cards */
+
+    --popover-hsl: 0 0% 10% / 0.75; /* Slightly darker, more opaque popover */
+    --popover-foreground-hsl: 0 0% 92%;
+
+    /* Interactive Elements - Minimal Monochrome */
+    --primary-hsl: 0 0% 90%; /* Off-White for primary button backgrounds */
+    --primary-foreground-hsl: 0 0% 10%; /* Dark Gray/Black text on primary buttons */
     
-    --card-hsl: 210 20% 18%; /* Slightly lighter dark blue/gray */
-    --card-foreground-hsl: 200 100% 90.6%;
+    /* Secondary elements or buttons */
+    --secondary-hsl: 0 0% 20% / 0.5; /* Dark Gray, semi-transparent */
+    --secondary-foreground-hsl: 0 0% 88%; /* Light Gray text */
 
-    --popover-hsl: 210 20% 15%;
-    --popover-foreground-hsl: 200 100% 90.6%;
+    /* Muted elements or text */
+    --muted-hsl: 0 0% 15% / 0.4; /* Muted semi-transparent dark gray */
+    --muted-foreground-hsl: 0 0% 60%; /* Medium Gray for muted text */
 
-    --primary-hsl: 200 100% 80%; /* Brighter Soothing Blue for primary actions */
-    --primary-foreground-hsl: 210 25% 15%; /* Dark text on primary */
+    /* Accent: For hovers, focus, active states - subtle changes */
+    /* Example: hover on a card could use this for a border or subtle overlay */
+    --accent-hsl: 0 0% 100% / 0.1; /* Very subtle translucent whiteish overlay/highlight */
+    --accent-foreground-hsl: 0 0% 98%; /* Bright White text when on an accented background */
+
+    --destructive-hsl: 0 72% 51%; /* A standard red for destructive actions */
+    --destructive-foreground-hsl: 0 0% 98%; /* White text on destructive */
+
+    /* Borders for glassmorphic elements - very subtle */
+    --border-hsl: 0 0% 100% / 0.08; /* Faint, translucent white */
+    --input-hsl: 0 0% 14% / 0.5; /* Semi-transparent dark gray for input fields */
+    --ring-hsl: 0 0% 90% / 0.8; /* Light gray ring for focus states */
+
+    --radius: 0.5rem; /* Matched to :root, Apple/Google style */
+
+    /* Monochrome Chart colors for dark theme */
+    --chart-1: 0 0% 85%;
+    --chart-2: 0 0% 70%;
+    --chart-3: 0 0% 55%;
+    --chart-4: 0 0% 40%;
+    --chart-5: 0 0% 25%;
     
-    --secondary-hsl: 120 50% 35%; /* Darker Light Green */
-    --secondary-foreground-hsl: 120 73% 85%; /* Lighter green text */
-
-    --muted-hsl: 210 20% 25%; /* Muted dark blue/gray */
-    --muted-foreground-hsl: 200 50% 70%; /* Softer light text */
-
-    --accent-hsl: 240 40% 40%; /* Darker Soft Lavender */
-    --accent-foreground-hsl: 240 67% 90%; /* Lighter lavender text */
-
-    --destructive-hsl: 0 70% 50%; 
-    --destructive-foreground-hsl: 0 0% 100%;
-
-    --border-hsl: 210 20% 30%; 
-    --input-hsl: 210 20% 22%;
-    --ring-hsl: 200 100% 75%; 
-
-    --chart-1: 200 70% 70%;
-    --chart-2: 120 60% 70%;
-    --chart-3: 60 70% 80%;
-    --chart-4: 240 50% 80%;
-    --chart-5: 210 60% 75%;
-
     /* Converted to HSL values for ShadCN */
     --background: var(--background-hsl);
     --foreground: var(--foreground-hsl);
@@ -136,40 +144,39 @@
   }
   body {
     @apply bg-background text-foreground;
-    /* Default to light theme as per new color scheme */
-    /* Remove 'dark' class if light is default */
     /* font-family is handled by utility class 'font-sans' in layout.tsx via next/font */
   }
-  /* Gentle fade-in effects and smooth transitions */
+  /* Gentle fade-in effects and smooth transitions for properties */
   * {
      @apply transition-all duration-300 ease-in-out; 
   }
-   /* Focus states indicated by thin outlines */
+   /* Focus states indicated by rings */
   *:focus-visible {
-     @apply outline-none ring-1 ring-ring ring-offset-1 ring-offset-background;
+     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
 }
 
 
-/* Minimal scrollbar styling */
+/* Minimal scrollbar styling for a cleaner look */
 ::-webkit-scrollbar {
-  width: 8px; /* Slightly wider for easier interaction */
-  height: 8px;
+  width: 6px; 
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(var(--background) / 0.5); /* Semi-transparent track */
+  background: hsl(var(--background) / 0.1); /* Very subtle track */
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted)); /* Muted color for thumb */
-  border-radius: 4px;
+  background: hsl(var(--muted-foreground) / 0.5); /* Translucent thumb */
+  border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--accent)); /* Accent color on hover */
+  background: hsl(var(--foreground) / 0.6); /* Slightly more visible on hover */
 }
 
-/* Lucide Icon default stroke width for thinner icons */
-/* This might need to be applied more specifically if it affects icons undesirably */
-/* Alternatively, pass strokeWidth prop to Lucide components */
-/* svg[class*="lucide-"] { 
-  stroke-width: 1.5; 
-} */
+/* Apply backdrop blur to elements that are intended to be glassmorphic */
+/* This is a more targeted approach if not all elements with these backgrounds should blur,
+   or can be added directly to component classNames.
+.glass-effect {
+  @apply backdrop-blur-md;
+}
+*/

@@ -50,15 +50,14 @@ const MemeCard: FC<MemeCardProps> = ({ meme }) => {
   };
 
   if (!isClient) {
-    // Render placeholder or null on the server to avoid hydration mismatch for likes/dislikes
     return (
-      <Card className="overflow-hidden bg-card border border-border shadow-none hover:shadow-md transition-shadow duration-200 rounded-lg">
+      // Card will be glassmorphic due to ui/card.tsx update
+      <Card className="overflow-hidden shadow-none hover:shadow-md transition-shadow duration-200 rounded-lg">
         <CardContent className="p-0">
-          <div className="aspect-video relative bg-muted/10"> {/* Changed to aspect-video for wider memes */}
-             {/* Placeholder for image */}
+          <div className="aspect-video relative bg-muted/10">
           </div>
         </CardContent>
-        <CardFooter className="py-2 px-3 flex justify-start items-center bg-card border-t border-border">
+        <CardFooter className="py-2 px-3 flex justify-start items-center border-t border-border">
           <div className="flex gap-1">
             <div className="h-8 w-16 bg-muted/20 rounded-md animate-pulse"></div>
             <div className="h-8 w-16 bg-muted/20 rounded-md animate-pulse"></div>
@@ -69,35 +68,35 @@ const MemeCard: FC<MemeCardProps> = ({ meme }) => {
   }
 
   return (
-    <Card className="overflow-hidden bg-card border border-border shadow-none hover:shadow-lg transition-shadow duration-200 ease-in-out rounded-xl"> {/* More pronounced rounding and shadow on hover */}
+    // Card will be glassmorphic. Added rounded-xl for slightly more modern feel.
+    <Card className="overflow-hidden shadow-none hover:shadow-lg transition-shadow duration-200 ease-in-out rounded-xl">
       <CardContent className="p-0">
-        <div className="aspect-video relative bg-muted/5"> {/* Maintain aspect ratio, subtle bg for image loading */}
+        <div className="aspect-video relative bg-black/20"> {/* Darker placeholder for image loading */}
           <Image
             src={meme.imageUrl}
             alt={meme.altText}
             fill
-            style={{ objectFit: 'cover' }} // Changed to cover for better fill, can be 'contain'
+            style={{ objectFit: 'contain' }} // Use 'contain' to ensure whole meme is visible
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             priority={meme.id === 'meme1'}
             data-ai-hint={meme.dataAiHint}
-            className="rounded-t-xl" // Match card rounding
-            // For local dev, unoptimized can help if external images are slow or blocked
-            // unoptimized={process.env.NODE_ENV === 'development'}
+            className="rounded-t-xl"
           />
         </div>
       </CardContent>
-      <CardFooter className="py-2.5 px-4 flex justify-between items-center bg-card border-t border-border"> {/* Increased padding slightly */}
+      {/* CardFooter bg-card will also be glassmorphic. Border adjusted. */}
+      <CardFooter className="py-2.5 px-4 flex justify-between items-center border-t border-border/50">
         <div className="flex gap-2">
           <Button
             variant="ghost"
             size="sm"
             onClick={handleLike}
             className={`flex items-center gap-1.5 p-1.5 rounded-md 
-                        text-muted-foreground hover:text-foreground hover:bg-accent 
-                        ${userInteraction === 'liked' ? 'text-primary-foreground bg-accent' : ''}`}
+                        text-muted-foreground hover:text-foreground hover:bg-white/10
+                        ${userInteraction === 'liked' ? 'text-primary bg-white/20' : ''}`} // Adjusted active state for monochrome
             aria-label={`Like meme. Current likes: ${likes}`}
           >
-            <ThumbsUp className={`h-4 w-4 ${userInteraction === 'liked' ? 'fill-current' : ''}`} />
+            <ThumbsUp className={`h-4 w-4 ${userInteraction === 'liked' ? 'fill-primary' : ''}`} />
             <span className="text-xs font-medium">{likes}</span>
           </Button>
           <Button
@@ -105,15 +104,14 @@ const MemeCard: FC<MemeCardProps> = ({ meme }) => {
             size="sm"
             onClick={handleDislike}
             className={`flex items-center gap-1.5 p-1.5 rounded-md 
-                        text-muted-foreground hover:text-foreground hover:bg-accent 
-                        ${userInteraction === 'disliked' ? 'text-primary-foreground bg-accent' : ''}`}
+                        text-muted-foreground hover:text-foreground hover:bg-white/10
+                        ${userInteraction === 'disliked' ? 'text-primary bg-white/20' : ''}`} // Adjusted active state for monochrome
             aria-label={`Dislike meme. Current dislikes: ${dislikes}`}
           >
-            <ThumbsDown className={`h-4 w-4 ${userInteraction === 'disliked' ? 'fill-current' : ''}`} />
+            <ThumbsDown className={`h-4 w-4 ${userInteraction === 'disliked' ? 'fill-primary' : ''}`} />
             <span className="text-xs font-medium">{dislikes}</span>
           </Button>
         </div>
-        {/* Placeholder for potential share button or other actions */}
       </CardFooter>
     </Card>
   );
