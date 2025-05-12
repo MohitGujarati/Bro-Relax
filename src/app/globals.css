@@ -2,154 +2,152 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Add global font import for Inter */
-/* @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap'); */
-/* This is handled by next/font in layout.tsx, so explicit import here is not strictly necessary and can cause ordering issues. */
+/* No need for @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap'); */
+/* This is handled by next/font in layout.tsx */
+
 
 @layer base {
   :root {
-    /* Default theme (effectively light, will be overridden by .dark) */
-    --background-hsl: 0 0% 100%; /* White */
-    --foreground-hsl: 0 0% 3.9%; /* Near Black */
-    
-    --card-hsl: 0 0% 100%;
-    --card-foreground-hsl: 0 0% 3.9%;
+    /* Define HSL values for light theme (if ever needed) */
+    --background-hsl-light: 0 0% 100%;
+    --foreground-hsl-light: 0 0% 3.9%;
+    --card-hsl-light: 0 0% 100%;
+    --card-foreground-hsl-light: 0 0% 3.9%;
+    --popover-hsl-light: 0 0% 100%;
+    --popover-foreground-hsl-light: 0 0% 3.9%;
+    --primary-hsl-light: 0 0% 9%;
+    --primary-foreground-hsl-light: 0 0% 98%;
+    --secondary-hsl-light: 0 0% 96.1%;
+    --secondary-foreground-hsl-light: 0 0% 9%;
+    --muted-hsl-light: 0 0% 96.1%;
+    --muted-foreground-hsl-light: 0 0% 45.1%;
+    --accent-hsl-light: 0 0% 96.1%;
+    --accent-foreground-hsl-light: 0 0% 9%;
+    --destructive-hsl-light: 0 84.2% 60.2%;
+    --destructive-foreground-hsl-light: 0 0% 98%;
+    --border-hsl-light: 0 0% 89.8%;
+    --input-hsl-light: 0 0% 89.8%;
+    --ring-hsl-light: 0 0% 3.9%;
 
-    --popover-hsl: 0 0% 100%;
-    --popover-foreground-hsl: 0 0% 3.9%;
-
-    --primary-hsl: 0 0% 9%; /* Near Black */
-    --primary-foreground-hsl: 0 0% 98%; /* Off-White */
-    
-    --secondary-hsl: 0 0% 96.1%; /* Light Gray */
-    --secondary-foreground-hsl: 0 0% 9%; /* Near Black */
-
-    --muted-hsl: 0 0% 96.1%;
-    --muted-foreground-hsl: 0 0% 45.1%; /* Medium Gray */
-
-    --accent-hsl: 0 0% 96.1%;
-    --accent-foreground-hsl: 0 0% 9%;
-
-    --destructive-hsl: 0 84.2% 60.2%; /* Red */
-    --destructive-foreground-hsl: 0 0% 98%;
-
-    --border-hsl: 0 0% 89.8%;
-    --input-hsl: 0 0% 89.8%;
-    --ring-hsl: 0 0% 3.9%;
-
-    --radius: 0.5rem; /* Consistent, slightly subdued rounding */
-
-    /* Chart colors (light theme examples) */
-    --chart-1: 200 70% 50%;
-    --chart-2: 120 60% 45%;
-    --chart-3: 60 70% 55%;
-    --chart-4: 240 50% 60%;
-    --chart-5: 210 60% 50%;
-
-    /* Converted to HSL values for ShadCN */
-    --background: var(--background-hsl);
-    --foreground: var(--foreground-hsl);
-    --card: var(--card-hsl);
-    --card-foreground: var(--card-foreground-hsl);
-    --popover: var(--popover-hsl);
-    --popover-foreground: var(--popover-foreground-hsl);
-    --primary: var(--primary-hsl);
-    --primary-foreground: var(--primary-foreground-hsl);
-    --secondary: var(--secondary-hsl);
-    --secondary-foreground: var(--secondary-foreground-hsl);
-    --muted: var(--muted-hsl);
-    --muted-foreground: var(--muted-foreground-hsl);
-    --accent: var(--accent-hsl);
-    --accent-foreground: var(--accent-foreground-hsl);
-    --destructive: var(--destructive-hsl);
-    --destructive-foreground: var(--destructive-foreground-hsl);
-    --border: var(--border-hsl);
-    --input: var(--input-hsl);
-    --ring: var(--ring-hsl);
-  }
-
-  .dark {
-    /* Minimal Black & White Glassmorphism Theme */
-    --background-hsl: 0 0% 2%; /* Near Black - Opaque base for the page */
-    --foreground-hsl: 0 0% 95%;   /* Light Gray/Off-White for text */
+    /* Default to dark theme values */
+    --background-hsl: 0 0% 2%; /* Near Black - Opaque base */
+    --foreground-hsl: 0 0% 95%; /* Light Gray/Off-White text */
 
     /* Glassmorphic Elements: Card, Popover, Dialog */
-    /* These will need backdrop-blur applied via utility classes or in base component styles */
-    --card-hsl: 0 0% 12% / 0.65; /* Dark Gray, semi-transparent for cards */
-    --card-foreground-hsl: 0 0% 92%; /* Light Gray/Off-White text on cards */
+    --card-hsl: 0 0% 12% / 0.65; /* Dark Gray, semi-transparent (Adjust alpha for intensity) */
+    --card-foreground-hsl: 0 0% 92%;
 
-    --popover-hsl: 0 0% 10% / 0.75; /* Slightly darker, more opaque popover */
+    --popover-hsl: 0 0% 10% / 0.75; /* Darker, more opaque popover */
     --popover-foreground-hsl: 0 0% 92%;
 
     /* Interactive Elements - Minimal Monochrome */
-    --primary-hsl: 0 0% 90%; /* Off-White for primary button backgrounds */
-    --primary-foreground-hsl: 0 0% 10%; /* Dark Gray/Black text on primary buttons */
-    
-    /* Secondary elements or buttons */
-    --secondary-hsl: 0 0% 20% / 0.5; /* Dark Gray, semi-transparent */
-    --secondary-foreground-hsl: 0 0% 88%; /* Light Gray text */
+    --primary-hsl: 0 0% 90%; /* Off-White for primary interactive elements */
+    --primary-foreground-hsl: 0 0% 10%; /* Dark Gray/Black text on primary */
 
-    /* Muted elements or text */
+    --secondary-hsl: 0 0% 20% / 0.5; /* Dark Gray, semi-transparent secondary elements */
+    --secondary-foreground-hsl: 0 0% 88%;
+
     --muted-hsl: 0 0% 15% / 0.4; /* Muted semi-transparent dark gray */
     --muted-foreground-hsl: 0 0% 60%; /* Medium Gray for muted text */
 
-    /* Accent: For hovers, focus, active states - subtle changes */
-    /* Example: hover on a card could use this for a border or subtle overlay */
-    --accent-hsl: 0 0% 100% / 0.1; /* Very subtle translucent whiteish overlay/highlight */
-    --accent-foreground-hsl: 0 0% 98%; /* Bright White text when on an accented background */
+    /* Accent: For hovers, focus - subtle highlight */
+    --accent-hsl: 0 0% 100% / 0.1; /* Very subtle translucent whiteish overlay */
+    --accent-foreground-hsl: 0 0% 98%; /* Bright White text when on accent */
 
-    --destructive-hsl: 0 72% 51%; /* A standard red for destructive actions */
-    --destructive-foreground-hsl: 0 0% 98%; /* White text on destructive */
+    --destructive-hsl: 0 72% 51%; /* Standard red */
+    --destructive-foreground-hsl: 0 0% 98%;
 
-    /* Borders for glassmorphic elements - very subtle */
-    --border-hsl: 0 0% 100% / 0.08; /* Faint, translucent white */
-    --input-hsl: 0 0% 14% / 0.5; /* Semi-transparent dark gray for input fields */
-    --ring-hsl: 0 0% 90% / 0.8; /* Light gray ring for focus states */
+    /* Borders & Inputs - Subtle */
+    --border-hsl: 0 0% 100% / 0.12; /* Faint, slightly more visible translucent white border */
+    --input-hsl: 0 0% 14% / 0.5; /* Semi-transparent dark gray input */
+    --ring-hsl: 0 0% 90% / 0.8; /* Light gray focus ring */
 
-    --radius: 0.5rem; /* Matched to :root, Apple/Google style */
+    --radius: 0.5rem; /* Consistent rounding */
 
-    /* Monochrome Chart colors for dark theme */
+    /* Chart colors (Monochrome dark theme) */
     --chart-1: 0 0% 85%;
     --chart-2: 0 0% 70%;
     --chart-3: 0 0% 55%;
     --chart-4: 0 0% 40%;
     --chart-5: 0 0% 25%;
-    
-    /* Converted to HSL values for ShadCN */
-    --background: var(--background-hsl);
-    --foreground: var(--foreground-hsl);
-    --card: var(--card-hsl);
-    --card-foreground: var(--card-foreground-hsl);
-    --popover: var(--popover-hsl);
-    --popover-foreground: var(--popover-foreground-hsl);
-    --primary: var(--primary-hsl);
-    --primary-foreground: var(--primary-foreground-hsl);
-    --secondary: var(--secondary-hsl);
-    --secondary-foreground: var(--secondary-foreground-hsl);
-    --muted: var(--muted-hsl);
-    --muted-foreground: var(--muted-foreground-hsl);
-    --accent: var(--accent-hsl);
-    --accent-foreground: var(--accent-foreground-hsl);
-    --destructive: var(--destructive-hsl);
-    --destructive-foreground: var(--destructive-foreground-hsl);
-    --border: var(--border-hsl);
-    --input: var(--input-hsl);
-    --ring: var(--ring-hsl);
+
+    /* Map CSS variables for ShadCN */
+    --background: hsl(var(--background-hsl));
+    --foreground: hsl(var(--foreground-hsl));
+    --card: hsl(var(--card-hsl));
+    --card-foreground: hsl(var(--card-foreground-hsl));
+    --popover: hsl(var(--popover-hsl));
+    --popover-foreground: hsl(var(--popover-foreground-hsl));
+    --primary: hsl(var(--primary-hsl));
+    --primary-foreground: hsl(var(--primary-foreground-hsl));
+    --secondary: hsl(var(--secondary-hsl));
+    --secondary-foreground: hsl(var(--secondary-foreground-hsl));
+    --muted: hsl(var(--muted-hsl));
+    --muted-foreground: hsl(var(--muted-foreground-hsl));
+    --accent: hsl(var(--accent-hsl));
+    --accent-foreground: hsl(var(--accent-foreground-hsl));
+    --destructive: hsl(var(--destructive-hsl));
+    --destructive-foreground: hsl(var(--destructive-foreground-hsl));
+    --border: hsl(var(--border-hsl));
+    --input: hsl(var(--input-hsl));
+    --ring: hsl(var(--ring-hsl));
+  }
+
+  /* Apply dark theme by default */
+  html {
+    color-scheme: dark; /* Inform browser about the dark theme */
+  }
+
+  /* Style overrides for light theme if needed via a class, e.g., <html class="light"> */
+  .light {
+    --background-hsl: var(--background-hsl-light);
+    --foreground-hsl: var(--foreground-hsl-light);
+    --card-hsl: var(--card-hsl-light);
+    --card-foreground-hsl: var(--card-foreground-hsl-light);
+    --popover-hsl: var(--popover-hsl-light);
+    --popover-foreground-hsl: var(--popover-foreground-hsl-light);
+    --primary-hsl: var(--primary-hsl-light);
+    --primary-foreground-hsl: var(--primary-foreground-hsl-light);
+    --secondary-hsl: var(--secondary-hsl-light);
+    --secondary-foreground-hsl: var(--secondary-foreground-hsl-light);
+    --muted-hsl: var(--muted-hsl-light);
+    --muted-foreground-hsl: var(--muted-foreground-hsl-light);
+    --accent-hsl: var(--accent-hsl-light);
+    --accent-foreground-hsl: var(--accent-foreground-hsl-light);
+    --destructive-hsl: var(--destructive-hsl-light);
+    --destructive-foreground-hsl: var(--destructive-foreground-hsl-light);
+    --border-hsl: var(--border-hsl-light);
+    --input-hsl: var(--input-hsl-light);
+    --ring-hsl: var(--ring-hsl-light);
+    /* Reset potentially semi-transparent values if needed for light mode */
+    --card: hsl(var(--card-hsl));
+    --popover: hsl(var(--popover-hsl));
+    --secondary: hsl(var(--secondary-hsl));
+    --muted: hsl(var(--muted-hsl));
+    --accent: hsl(var(--accent-hsl));
+    --input: hsl(var(--input-hsl));
+    --border: hsl(var(--border-hsl));
+    color-scheme: light;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border; /* Use the theme's border color */
   }
   body {
     @apply bg-background text-foreground;
-    /* font-family is handled by utility class 'font-sans' in layout.tsx via next/font */
+    /* font-family handled by layout.tsx */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  /* Gentle fade-in effects and smooth transitions for properties */
+
+  /* Smooth transitions for common properties */
   * {
-     @apply transition-all duration-300 ease-in-out; 
+     @apply transition-colors duration-200 ease-in-out;
   }
+
    /* Focus states indicated by rings */
   *:focus-visible {
      @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
@@ -157,26 +155,96 @@
 }
 
 
-/* Minimal scrollbar styling for a cleaner look */
+@layer utilities {
+  /* Breathing animation keyframes */
+  @keyframes breath-inhale {
+    from { transform: scale(0.5); opacity: 0.7; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  @keyframes breath-exhale {
+    from { transform: scale(1); opacity: 1; }
+    to { transform: scale(0.5); opacity: 0.7; }
+  }
+  .animate-breath-inhale {
+    animation-name: breath-inhale;
+    animation-timing-function: ease-out;
+    animation-fill-mode: forwards;
+    /* Duration set inline */
+  }
+  .animate-breath-exhale {
+    animation-name: breath-exhale;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+    /* Duration set inline */
+  }
+}
+
+
+/* Minimal scrollbar styling */
 ::-webkit-scrollbar {
-  width: 6px; 
+  width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(var(--background) / 0.1); /* Very subtle track */
+  background: transparent; /* Make track invisible */
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted-foreground) / 0.5); /* Translucent thumb */
+  background: hsl(var(--muted-foreground) / 0.4); /* Subtle thumb */
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--foreground) / 0.6); /* Slightly more visible on hover */
+  background: hsl(var(--foreground) / 0.5); /* Slightly more visible on hover */
 }
 
-/* Apply backdrop blur to elements that are intended to be glassmorphic */
-/* This is a more targeted approach if not all elements with these backgrounds should blur,
-   or can be added directly to component classNames.
+/* Apply backdrop blur to components that need it via their specific className or base component style */
+/* Example: add 'backdrop-blur-lg' to Card component in card.tsx if desired */
 .glass-effect {
-  @apply backdrop-blur-md;
+  @apply backdrop-blur-lg bg-card; /* Ensure a background color is set */
 }
-*/
+
+
+.file\:mr-3::file-selector-button {
+  margin-right: 0.75rem;
+}
+.file\:px-4::file-selector-button {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.file\:py-2::file-selector-button {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.file\:text-xs::file-selector-button {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+.file\:font-medium::file-selector-button {
+  font-weight: 500;
+}
+.file\:rounded-lg::file-selector-button {
+  border-radius: 0.5rem;
+}
+.file\:border-0::file-selector-button {
+  border-width: 0px;
+}
+.file\:bg-secondary::file-selector-button {
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--secondary) / var(--tw-bg-opacity));
+}
+.file\:text-secondary-foreground::file-selector-button {
+  --tw-text-opacity: 1;
+  color: hsl(var(--secondary-foreground) / var(--tw-text-opacity));
+}
+.hover\:file\:bg-accent\/80:hover::file-selector-button {
+  background-color: hsl(var(--accent) / 0.8);
+}
+.file\:bg-transparent::file-selector-button {
+  background-color: transparent;
+}
+.file\:text-sm::file-selector-button {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.file\:font-medium::file-selector-button {
+  font-weight: 500;
+}

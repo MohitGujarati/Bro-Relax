@@ -5,13 +5,15 @@ import CommunityShoutouts from '@/components/relax-zone/community-shoutouts';
 import type { FC } from 'react';
 
 /**
- * Page for User Profile and Posts (currently Community Shoutouts).
+ * Page for Community Shoutouts. Renamed from ProfilePage for clarity.
  * This is one of the main tabs in the Relax Zone.
  */
-const ProfilePage: FC = () => {
-  // In the future, this page could include more user-specific profile information
-  // in addition to or instead of general community shoutouts.
+const CommunityPage: FC = () => {
+  // Currently this page only shows the community shoutouts component.
+  // Future enhancements could include user-specific content if authentication is added.
   return <CommunityShoutouts />;
 };
 
-export default ProfilePage;
+export default CommunityPage; // Exporting the renamed component
+
+```
