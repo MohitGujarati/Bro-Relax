@@ -4,108 +4,129 @@
 
 @layer base {
   :root {
-    /* -- Light Mode (Minimal Black & White - High Contrast) -- */
-    /* Kept for reference but dark mode is default */
-    /* --background: 0 0% 100%; White */
-    /* --foreground: 0 0% 5%; Near Black */
-    /* --card: 0 0% 98%; Very Light Gray */
-    /* --card-foreground: 0 0% 5%; Near Black */
-    /* --popover: 0 0% 100%; White */
-    /* --popover-foreground: 0 0% 5%; Near Black */
-    /* --primary: 0 0% 9%; Black */
-    /* --primary-foreground: 0 0% 98%; White */
-    /* --secondary: 0 0% 94%; Light Gray (#F0F0F0) */
-    /* --secondary-foreground: 0 0% 9%; Black */
-    /* --muted: 0 0% 90%; Lighter Gray (#E6E6E6) */
-    /* --muted-foreground: 0 0% 40%; Medium Gray (#666666) */
-    /* --accent: 0 0% 90%; Lighter Gray (#E6E6E6) */
-    /* --accent-foreground: 0 0% 9%; Black */
-    /* --destructive: 0 84.2% 60.2%; Default Red */
-    /* --destructive-foreground: 0 0% 98%; Light text */
-    /* --border: 0 0% 87%; Light Gray Border (#DDDDDD) */
-    /* --input: 0 0% 95%; Very Light Gray Input (#F2F2F2) */
-    /* --ring: 0 0% 15%; Dark Gray Ring */
-    /* --chart-1: 0 0% 40%; */
-    /* --chart-2: 0 0% 60%; */
-    /* --chart-3: 0 0% 20%; */
-    /* --chart-4: 0 0% 75%; */
-    /* --chart-5: 0 0% 50%; */
+    /* Primary: Soothing Blue (#B0E2FF) */
+    --background-hsl: 200 100% 90.6%; /* HSL for #B0E2FF */
+    --foreground-hsl: 210 10% 23%; /* Darker Blue/Gray for text */
+    
+    /* Card Background: Slightly lighter than primary for depth, or a very light neutral */
+    --card-hsl: 200 100% 95%; /* Lighter shade of Soothing Blue */
+    --card-foreground-hsl: 210 10% 23%;
 
-    /* -- Default to Dark Theme Variables -- */
-    --background: 0 0% 0%; /* Black */
-    --foreground: 0 0% 95%; /* Near White */
-    --card: 0 0% 7%; /* Very Dark Gray (#121212) */
-    --card-foreground: 0 0% 95%; /* Near White */
-    --popover: 0 0% 5%; /* Slightly darker gray */
-    --popover-foreground: 0 0% 95%; /* Near White */
-    --primary: 0 0% 98%; /* White/Very Light Gray */
-    --primary-foreground: 0 0% 9%; /* Black */
-    --secondary: 0 0% 13%; /* Dark Gray (#222222) */
-    --secondary-foreground: 0 0% 98%; /* Very Light Gray */
-    --muted: 0 0% 15%; /* Darker Gray (#262626) */
-    --muted-foreground: 0 0% 65%; /* Medium Gray (#A6A6A6) */
-    --accent: 0 0% 20%; /* Medium Dark Gray (#333333) - for hover/focus */
-    --accent-foreground: 0 0% 98%; /* Very Light Gray */
-    --destructive: 0 62.8% 30.6%; /* Darker Red */
-    --destructive-foreground: 0 0% 98%; /* Light text */
-    --border: 0 0% 27%; /* Medium Gray Border (#444444) */
-    --input: 0 0% 10%; /* Dark Gray Input (#1A1A1A) */
-    --ring: 0 0% 80%; /* Light Gray Ring */
-    --chart-1: 0 0% 70%;
-    --chart-2: 0 0% 50%;
-    --chart-3: 0 0% 90%;
-    --chart-4: 0 0% 40%;
-    --chart-5: 0 0% 60%;
+    /* Popover: Similar to Card or a bit more distinct */
+    --popover-hsl: 200 100% 95%;
+    --popover-foreground-hsl: 210 10% 23%;
 
-    --radius: 0.5rem;
+    /* Primary Interactive Elements: Could be a slightly darker shade of blue or a contrasting color from palette */
+    --primary-hsl: 195 80% 75%; /* Slightly darker/more saturated blue */
+    --primary-foreground-hsl: 210 20% 15%; /* Dark text for primary elements */
+    
+    /* Secondary Colors: Light Green (#90EE90) & Pale Yellow (#FAFAD2) */
+    --secondary-hsl: 120 73% 75%; /* HSL for #90EE90 (Light Green) */
+    --secondary-foreground-hsl: 120 25% 25%; /* Dark green text */
 
-    /* Sidebar specific adjustments - inherit from main dark theme */
-    --sidebar-background: var(--background);
-    --sidebar-foreground: var(--foreground);
-    --sidebar-primary: var(--primary);
-    --sidebar-primary-foreground: var(--primary-foreground);
-    --sidebar-accent: var(--accent);
-    --sidebar-accent-foreground: var(--accent-foreground);
-    --sidebar-border: var(--border);
-    --sidebar-ring: var(--ring);
+    /* Muted: For less prominent elements, can use shades of primary or neutrals */
+    --muted-hsl: 200 50% 85%; /* Muted blue */
+    --muted-foreground-hsl: 210 10% 40%; /* Softer text color */
+
+    /* Accent: Soft Lavender (#E6E6FA) */
+    --accent-hsl: 240 67% 94%; /* HSL for #E6E6FA */
+    --accent-foreground-hsl: 240 20% 30%; /* Dark lavender text */
+
+    --destructive-hsl: 0 84.2% 60.2%; /* Default Red */
+    --destructive-foreground-hsl: 0 0% 100%;
+
+    --border-hsl: 200 30% 80%; /* Border color, related to primary */
+    --input-hsl: 200 30% 92%; /* Input background, light and subtle */
+    --ring-hsl: 195 80% 70%; /* Ring color for focus, related to primary interactive */
+
+    --radius: 0.75rem; /* Slightly more rounded corners */
+
+    /* Chart colors (example, adjust as needed for visibility on light theme) */
+    --chart-1: 200 70% 60%;
+    --chart-2: 120 60% 60%;
+    --chart-3: 60 70% 70%; /* Pale Yellow related */
+    --chart-4: 240 50% 75%; /* Lavender related */
+    --chart-5: 210 60% 65%;
+
+    /* Converted to HSL values for ShadCN */
+    --background: var(--background-hsl);
+    --foreground: var(--foreground-hsl);
+    --card: var(--card-hsl);
+    --card-foreground: var(--card-foreground-hsl);
+    --popover: var(--popover-hsl);
+    --popover-foreground: var(--popover-foreground-hsl);
+    --primary: var(--primary-hsl);
+    --primary-foreground: var(--primary-foreground-hsl);
+    --secondary: var(--secondary-hsl);
+    --secondary-foreground: var(--secondary-foreground-hsl);
+    --muted: var(--muted-hsl);
+    --muted-foreground: var(--muted-foreground-hsl);
+    --accent: var(--accent-hsl);
+    --accent-foreground: var(--accent-foreground-hsl);
+    --destructive: var(--destructive-hsl);
+    --destructive-foreground: var(--destructive-foreground-hsl);
+    --border: var(--border-hsl);
+    --input: var(--input-hsl);
+    --ring: var(--ring-hsl);
   }
 
+  /* Dark theme (optional, can be removed if default is light) */
   .dark {
-    /* Ensure dark mode variables are explicitly defined */
-    --background: 0 0% 0%; /* Black */
-    --foreground: 0 0% 95%; /* Near White */
-    --card: 0 0% 7%; /* Very Dark Gray (#121212) */
-    --card-foreground: 0 0% 95%; /* Near White */
-    --popover: 0 0% 5%; /* Slightly darker gray */
-    --popover-foreground: 0 0% 95%; /* Near White */
-    --primary: 0 0% 98%; /* White/Very Light Gray */
-    --primary-foreground: 0 0% 9%; /* Black */
-    --secondary: 0 0% 13%; /* Dark Gray (#222222) */
-    --secondary-foreground: 0 0% 98%; /* Very Light Gray */
-    --muted: 0 0% 15%; /* Darker Gray (#262626) */
-    --muted-foreground: 0 0% 65%; /* Medium Gray (#A6A6A6) */
-    --accent: 0 0% 20%; /* Medium Dark Gray (#333333) - for hover/focus */
-    --accent-foreground: 0 0% 98%; /* Very Light Gray */
-    --destructive: 0 62.8% 30.6%; /* Darker Red */
-    --destructive-foreground: 0 0% 98%; /* Light text */
-    --border: 0 0% 27%; /* Medium Gray Border (#444444) */
-    --input: 0 0% 10%; /* Dark Gray Input (#1A1A1A) */
-    --ring: 0 0% 80%; /* Light Gray Ring */
-    --chart-1: 0 0% 70%;
-    --chart-2: 0 0% 50%;
-    --chart-3: 0 0% 90%;
-    --chart-4: 0 0% 40%;
-    --chart-5: 0 0% 60%;
+    /* For a dark theme, we invert or choose darker shades */
+    --background-hsl: 210 20% 12%; /* Dark Blue/Gray */
+    --foreground-hsl: 200 100% 90.6%; /* Soothing Blue as text */
+    
+    --card-hsl: 210 20% 18%; /* Slightly lighter dark blue/gray */
+    --card-foreground-hsl: 200 100% 90.6%;
 
-    /* Dark sidebar colors - inherit from main theme */
-    --sidebar-background: var(--background);
-    --sidebar-foreground: var(--foreground);
-    --sidebar-primary: var(--primary);
-    --sidebar-primary-foreground: var(--primary-foreground);
-    --sidebar-accent: var(--accent);
-    --sidebar-accent-foreground: var(--accent-foreground);
-    --sidebar-border: var(--border);
-    --sidebar-ring: var(--ring);
+    --popover-hsl: 210 20% 15%;
+    --popover-foreground-hsl: 200 100% 90.6%;
+
+    --primary-hsl: 200 100% 80%; /* Brighter Soothing Blue for primary actions */
+    --primary-foreground-hsl: 210 25% 15%; /* Dark text on primary */
+    
+    --secondary-hsl: 120 50% 35%; /* Darker Light Green */
+    --secondary-foreground-hsl: 120 73% 85%; /* Lighter green text */
+
+    --muted-hsl: 210 20% 25%; /* Muted dark blue/gray */
+    --muted-foreground-hsl: 200 50% 70%; /* Softer light text */
+
+    --accent-hsl: 240 40% 40%; /* Darker Soft Lavender */
+    --accent-foreground-hsl: 240 67% 90%; /* Lighter lavender text */
+
+    --destructive-hsl: 0 70% 50%; 
+    --destructive-foreground-hsl: 0 0% 100%;
+
+    --border-hsl: 210 20% 30%; 
+    --input-hsl: 210 20% 22%;
+    --ring-hsl: 200 100% 75%; 
+
+    --chart-1: 200 70% 70%;
+    --chart-2: 120 60% 70%;
+    --chart-3: 60 70% 80%;
+    --chart-4: 240 50% 80%;
+    --chart-5: 210 60% 75%;
+
+    /* Converted to HSL values for ShadCN */
+    --background: var(--background-hsl);
+    --foreground: var(--foreground-hsl);
+    --card: var(--card-hsl);
+    --card-foreground: var(--card-foreground-hsl);
+    --popover: var(--popover-hsl);
+    --popover-foreground: var(--popover-foreground-hsl);
+    --primary: var(--primary-hsl);
+    --primary-foreground: var(--primary-foreground-hsl);
+    --secondary: var(--secondary-hsl);
+    --secondary-foreground: var(--secondary-foreground-hsl);
+    --muted: var(--muted-hsl);
+    --muted-foreground: var(--muted-foreground-hsl);
+    --accent: var(--accent-hsl);
+    --accent-foreground: var(--accent-foreground-hsl);
+    --destructive: var(--destructive-hsl);
+    --destructive-foreground: var(--destructive-foreground-hsl);
+    --border: var(--border-hsl);
+    --input: var(--input-hsl);
+    --ring: var(--ring-hsl);
   }
 }
 
@@ -115,31 +136,40 @@
   }
   body {
     @apply bg-background text-foreground;
-    /* Apply dark theme by default */
-    @apply dark;
+    /* Default to light theme as per new color scheme */
+    /* Remove 'dark' class if light is default */
+    /* font-family is handled by utility class 'font-sans' in layout.tsx via next/font */
   }
-  /* Add subtle focus state */
-  *:focus-visible {
-     @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
-  }
-  /* Smooth transitions */
+  /* Gentle fade-in effects and smooth transitions */
   * {
-     @apply transition-colors duration-200 ease-in-out;
+     @apply transition-all duration-300 ease-in-out; 
+  }
+   /* Focus states indicated by thin outlines */
+  *:focus-visible {
+     @apply outline-none ring-1 ring-ring ring-offset-1 ring-offset-background;
   }
 }
 
+
 /* Minimal scrollbar styling */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px; /* Slightly wider for easier interaction */
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(var(--background)); /* Use background color */
+  background: hsl(var(--background) / 0.5); /* Semi-transparent track */
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted)); /* Use muted color */
-  border-radius: 3px;
+  background: hsl(var(--muted)); /* Muted color for thumb */
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground)); /* Slightly lighter on hover */
+  background: hsl(var(--accent)); /* Accent color on hover */
 }
+
+/* Lucide Icon default stroke width for thinner icons */
+/* This might need to be applied more specifically if it affects icons undesirably */
+/* Alternatively, pass strokeWidth prop to Lucide components */
+/* svg[class*="lucide-"] { 
+  stroke-width: 1.5; 
+} */

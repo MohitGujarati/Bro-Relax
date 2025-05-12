@@ -1,151 +1,119 @@
-
-'use client'; // Needs state for file, preview, and uses client-side APIs like File API and URL.createObjectURL.
+'use client';
 
 import type { FC } from 'react';
 import { useState, useRef, ChangeEvent, FormEvent, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'; // Keep Card imports if styling is reused, otherwise remove.
 import { useToast } from '@/hooks/use-toast';
-import { UploadCloud, ImagePlus } from 'lucide-react';
+import { UploadCloud } from 'lucide-react'; // Icon for submit button
 
 interface MemeSubmissionFormProps {
-  onSuccess?: () => void; // Optional callback for successful submission
+  onSuccess?: () => void;
 }
 
 /**
  * Provides a form for users to (simulate) uploading their own meme images.
- * Can be used standalone or within a dialog.
- * NOTE: The actual upload functionality is not implemented, this is frontend only.
+ * Styled for a minimal, modern UI.
  */
 const MemeSubmissionForm: FC<MemeSubmissionFormProps> = ({ onSuccess }) => {
-  const { toast } = useToast(); // Hook for showing notifications
-  // State to hold the selected file object
+  const { toast } = useToast();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  // State to hold the URL for the image preview
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
-  // Ref to access the file input element directly (e.g., for resetting)
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Handles changes to the file input element
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]; // Safely access the first selected file
+    const file = event.target.files?.[0];
 
     if (file) {
-      // Basic type check (optional, browser usually handles 'accept')
       if (!file.type.startsWith('image/')) {
         toast({
           title: 'Invalid File Type',
-          description: 'Please select an image file (e.g., JPG, PNG, GIF).',
+          description: 'Please select an image (JPEG, PNG, GIF, WEBP).',
           variant: 'destructive',
         });
-        // Reset if invalid file type selected
-        if (fileInputRef.current) {
-          fileInputRef.current.value = "";
-        }
+        if (fileInputRef.current) fileInputRef.current.value = "";
         setSelectedFile(null);
-        setPreviewUrl(null); // Ensure no old preview lingers
+        setPreviewUrl(null);
         return;
       }
-
       setSelectedFile(file);
-      // Create a temporary URL for previewing the selected image
       const newPreviewUrl = URL.createObjectURL(file);
-      setPreviewUrl(newPreviewUrl); // Set new preview URL
-
+      setPreviewUrl(newPreviewUrl);
     } else {
-      // If no file is selected (e.g., user cancelled), clear state
       setSelectedFile(null);
-      setPreviewUrl(null); // Clear preview URL
+      setPreviewUrl(null);
     }
   };
 
-  // Handles the form submission event
   const handleSubmit = (event: FormEvent) => {
-    event.preventDefault(); // Prevent default form submission
-
+    event.preventDefault();
     if (!selectedFile) {
       toast({
-        title: 'No Meme Selected',
-        description: 'Please select an image file to submit.',
+        title: 'No Image Selected',
+        description: 'Please choose an image file to share.',
         variant: 'destructive',
       });
-      return; // Stop submission if no file
+      return;
     }
 
-    // --- Simulation ---
     console.log('Simulating submission for:', selectedFile.name);
     toast({
-      title: 'Meme Submitted!',
-      description: `"${selectedFile.name}" is ready to spread joy (simulated).`,
+      title: 'Meme Shared!',
+      description: `"${selectedFile.name}" is spreading joy (simulated).`,
     });
-    // --- End Simulation ---
 
-    // Reset the form state after successful (simulated) submission
     setSelectedFile(null);
-    setPreviewUrl(null); // Clear preview URL on submit
-    // Reset the file input visually
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-
-    // Call the onSuccess callback if provided
+    setPreviewUrl(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
     onSuccess?.();
   };
 
-  // Cleanup Object URL effect
   useEffect(() => {
-    // This function will be called when the component unmounts or before the effect runs again
-    // if previewUrl changes and had a previous value.
     let currentPreviewUrl = previewUrl;
     return () => {
-      if (currentPreviewUrl) {
-        URL.revokeObjectURL(currentPreviewUrl);
-      }
+      if (currentPreviewUrl) URL.revokeObjectURL(currentPreviewUrl);
     };
-  }, [previewUrl]); // Depend only on previewUrl
-
+  }, [previewUrl]);
 
   return (
-    // Removed Card wrapper, assuming the parent (e.g., DialogContent) provides structure/padding.
-    // Add padding/margin here if used standalone. Example: <div className="p-4">...</div>
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {/* File Input */}
+    <form onSubmit={handleSubmit} className="space-y-5 p-1"> {/* Added slight padding for breathing room */}
       <div>
         <label htmlFor="memeFile" className="sr-only">Choose meme file</label>
         <Input
           id="memeFile"
           type="file"
-          accept="image/jpeg, image/png, image/gif, image/webp"
+          accept="image/jpeg,image/png,image/gif,image/webp"
           onChange={handleFileChange}
           ref={fileInputRef}
-          // Minimal input style
-          className="w-full text-sm bg-input border-border/70 text-foreground focus-visible:ring-primary/50 file:mr-3 file:py-1.5 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-medium file:bg-secondary file:text-secondary-foreground hover:file:bg-secondary/80 cursor-pointer"
+          className="w-full text-sm bg-input border-border/70 text-foreground focus-visible:ring-primary/50 
+                     file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-medium 
+                     file:bg-secondary file:text-secondary-foreground hover:file:bg-accent/80 cursor-pointer rounded-lg" // Modernized file input
           aria-describedby="file-constraints"
         />
-         <p id="file-constraints" className="text-xs text-muted-foreground mt-1.5 px-1">Supports JPG, PNG, GIF, WEBP.</p>
+        <p id="file-constraints" className="text-xs text-muted-foreground mt-2 px-1">Supports JPG, PNG, GIF, WEBP. Max 5MB.</p> {/* Added max size example */}
       </div>
 
-      {/* Image Preview */}
       {previewUrl && (
-        <div className="mt-3 border border-border/30 rounded-md p-2 bg-black/10 flex justify-center"> {/* Subtle preview bg */}
-          {/* Using standard img tag for preview from Object URL */}
+        <div className="mt-4 border border-border/30 rounded-lg p-2 bg-black/10 flex justify-center items-center max-h-60"> {/* Max height for preview */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-              src={previewUrl}
-              alt="Meme preview"
-              className="max-w-full max-h-40 h-auto rounded object-contain" // Smaller preview
-           />
+            src={previewUrl}
+            alt="Meme preview"
+            className="max-w-full max-h-56 h-auto rounded-md object-contain" // Ensure preview is contained and looks good
+          />
         </div>
       )}
 
-      {/* Submit Button - Right aligned */}
-       <div className="flex justify-end pt-1">
-           {/* Button uses theme colors */}
-          <Button type="submit" size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90" disabled={!selectedFile}>
-            <UploadCloud className="h-4 w-4 mr-1.5" /> Submit
-          </Button>
-        </div>
+      <div className="flex justify-end pt-2">
+        <Button 
+          type="submit" 
+          size="sm" 
+          className="bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded-md text-sm" // Consistent button styling
+          disabled={!selectedFile}
+        >
+          <UploadCloud className="h-4 w-4 mr-2" /> Submit Meme
+        </Button>
+      </div>
     </form>
   );
 };

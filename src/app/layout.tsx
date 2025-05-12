@@ -1,17 +1,18 @@
 
 import type { Metadata } from 'next';
-import { GeistSans } from 'geist/font/sans';
-// Removed GeistMono import as it caused issues
+import { Inter } from 'next/font/google'; // Import Inter
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 
-const geistSans = GeistSans;
-// Using GeistSans for mono as well to fix build error
-const geistMono = GeistSans;
+// Configure Inter font
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter', // Optional: if you want to use it as a CSS variable
+});
 
 export const metadata: Metadata = {
-  title: 'Zenith Zone', // Updated Title
-  description: 'Your space to relax and recharge.', // Updated description
+  title: 'Zenith Zone',
+  description: 'Your space to relax and recharge.',
 };
 
 export default function RootLayout({
@@ -20,10 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    // Add 'dark' class here to default to dark mode
-    <html lang="en" className="dark">
-      {/* Applied geistSans variable only */}
-      <body className={`${geistSans.variable} font-sans antialiased bg-background text-foreground`}> {/* Ensure base styles apply */}
+    <html lang="en" className={`${inter.variable} dark`}> {/* Apply Inter font class and dark mode */}
+      <body className={`font-sans antialiased bg-background text-foreground`}> {/* Use 'font-sans' which will pick up Inter */}
         {children}
         <Toaster />
       </body>

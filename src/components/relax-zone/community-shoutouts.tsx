@@ -1,25 +1,28 @@
-
-'use client'; // Needs state for messages, form input, and uses hooks like useRef and useToast.
+'use client';
 
 import type { FC } from 'react';
-import { useState, useRef, FormEvent } from 'react';
+import { useState, useRef, FormEvent, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { communityShoutouts as initialShoutouts, type Shoutout } from '@/lib/relax-zone-constants';
 import ShoutoutCard from './shoutout-card';
-import { Send, MessageSquarePlus } from 'lucide-react';
+import { Send, Users } from 'lucide-react'; // Using Users for community feel
 import { useToast } from '@/hooks/use-toast';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-/**
- * Displays community shoutouts and allows users to post messages, styled minimally like a feed section.
- */
 const CommunityShoutouts: FC = () => {
-  const [shoutouts, setShoutouts] = useState<Shoutout[]>(initialShoutouts);
+  const [shoutouts, setShoutouts] = useState<Shoutout[]>([]);
   const [newMessage, setNewMessage] = useState('');
   const { toast } = useToast();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+    // Initialize shoutouts on client to ensure consistency
+    setShoutouts(initialShoutouts); 
+  }, []);
 
   const handlePostMessage = (e: FormEvent) => {
     e.preventDefault();
@@ -29,13 +32,13 @@ const CommunityShoutouts: FC = () => {
         description: "Please write something to post.",
         variant: "destructive",
       });
-      textareaRef.current?.focus(); // Focus textarea on error
+      textareaRef.current?.focus();
       return;
     }
 
     const newShoutout: Shoutout = {
       id: `shoutout-${Date.now()}-${Math.random().toString(36).substring(2, 7)}`,
-      user: 'You',
+      user: 'You', // Or a more dynamic user name if auth is added
       avatarFallback: '😊',
       message: newMessage,
       timestamp: 'Just now',
@@ -44,59 +47,72 @@ const CommunityShoutouts: FC = () => {
     setShoutouts(prevShoutouts => [newShoutout, ...prevShoutouts]);
     setNewMessage('');
     toast({
-      title: "Message Posted!",
-      description: "Your positivity has been shared.",
+      title: "Message Shared!",
+      description: "Your positivity is out there.",
     });
   };
+  
+  if (!isClient) {
+     // Render placeholder or null on the server
+    return (
+        <Card className="bg-card border border-border shadow-none rounded-xl w-full max-w-md mx-auto">
+            <CardHeader className="pb-3 pt-5 px-5">
+                <CardTitle className="text-xl font-medium text-foreground flex items-center gap-2">
+                    <Users className="h-5 w-5 text-muted-foreground" /> Community Vibes
+                </CardTitle>
+            </CardHeader>
+            <CardContent className="px-5 pb-5 space-y-4">
+                 <div className="h-20 w-full bg-muted/20 rounded-md animate-pulse"></div>
+                 <div className="h-10 w-1/3 ml-auto bg-muted/20 rounded-md animate-pulse"></div>
+                 <div className="h-64 w-full bg-muted/10 rounded-md animate-pulse"></div>
+            </CardContent>
+        </Card>
+    );
+  }
 
   return (
-    <section aria-labelledby="community-shoutouts-title">
-       {/* Minimal Card styling */}
-       <Card className="bg-card border border-border/50 shadow-sm overflow-hidden">
-        <CardHeader className="pb-3 pt-4"> {/* Adjusted padding */}
-            <CardTitle id="community-shoutouts-title" className="text-lg font-medium tracking-tight text-foreground flex items-center gap-2"> {/* Adjusted size */}
-              <MessageSquarePlus className="h-5 w-5 text-muted-foreground" /> Community Positivity {/* Muted icon */}
-            </CardTitle>
+    <section aria-labelledby="community-shoutouts-title" className="w-full max-w-md mx-auto px-2 sm:px-0 py-6">
+      <Card className="bg-card border border-border shadow-none rounded-xl overflow-hidden">
+        <CardHeader className="pb-3 pt-5 px-5">
+          <CardTitle id="community-shoutouts-title" className="text-xl font-medium text-foreground flex items-center gap-2">
+            <Users className="h-5 w-5 text-muted-foreground" /> Community Vibes
+          </CardTitle>
         </CardHeader>
 
-        <CardContent className="space-y-5 px-5 pb-5 pt-0"> {/* Adjusted padding */}
-          {/* New Message Form - Minimal style */}
-          <form onSubmit={handlePostMessage} className="space-y-2.5">
+        <CardContent className="px-5 pb-5 space-y-4">
+          <form onSubmit={handlePostMessage} className="space-y-3">
             <Textarea
               ref={textareaRef}
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               placeholder="Share something positive..."
-              // Minimal textarea style
-              className="min-h-[70px] focus:ring-primary/50 focus-visible:ring-primary/50 bg-input border-border/70 text-sm rounded-md"
+              className="min-h-[80px] bg-input border-border/70 focus:border-primary/50 text-sm rounded-lg placeholder:text-muted-foreground"
               aria-label="New shoutout message"
               rows={3}
             />
             <div className="flex justify-end">
-              {/* Minimal button style */}
-              <Button type="submit" size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                <Send className="h-4 w-4 mr-1.5" /> Post
+              <Button type="submit" size="sm" className="bg-primary text-primary-foreground hover:bg-accent hover:text-accent-foreground rounded-md text-xs">
+                <Send className="h-3.5 w-3.5 mr-1.5" /> Post
               </Button>
             </div>
           </form>
 
-          {/* Display Area for Shoutouts */}
-          {shoutouts.length > 0 ? (
-            // Minimal ScrollArea style
-            <ScrollArea className="h-[400px] border border-border/30 rounded-md bg-black/10 p-0.5">
-              <div className="space-y-2 p-2.5"> {/* Adjusted spacing and padding */}
-                {shoutouts.map((shoutout) => (
-                  <ShoutoutCard key={shoutout.id} shoutout={shoutout} />
-                ))}
-              </div>
-            </ScrollArea>
-          ) : (
-            // Message displayed when there are no shoutouts - Minimal style
-            <div className="text-center py-8 border border-dashed border-border/40 rounded-md bg-black/10">
+          <div className="pt-2">
+            {shoutouts.length > 0 ? (
+              <ScrollArea className="h-[350px] sm:h-[400px] border border-border/30 rounded-lg bg-black/5 p-1">
+                <div className="space-y-2.5 p-2.5">
+                  {shoutouts.map((shoutout) => (
+                    <ShoutoutCard key={shoutout.id} shoutout={shoutout} />
+                  ))}
+                </div>
+              </ScrollArea>
+            ) : (
+              <div className="text-center py-10 border border-dashed border-border/40 rounded-lg bg-black/5">
                 <p className="text-muted-foreground text-sm">No messages yet.</p>
-                <p className="text-muted-foreground text-sm mt-1">Be the first to share!</p>
-            </div>
-          )}
+                <p className="text-muted-foreground text-xs mt-1">Be the first to share something positive!</p>
+              </div>
+            )}
+          </div>
         </CardContent>
       </Card>
     </section>
