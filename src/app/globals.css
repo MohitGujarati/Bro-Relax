@@ -4,44 +4,62 @@
 
 @layer base {
   :root {
-    /* Light Theme - Minimal Black & White */
-    --background: 0 0% 100%; /* White */
-    --foreground: 0 0% 5%; /* Near Black */
+    /* -- Light Mode (Minimal Black & White - High Contrast) -- */
+    /* Kept for reference but dark mode is default */
+    /* --background: 0 0% 100%; White */
+    /* --foreground: 0 0% 5%; Near Black */
+    /* --card: 0 0% 98%; Very Light Gray */
+    /* --card-foreground: 0 0% 5%; Near Black */
+    /* --popover: 0 0% 100%; White */
+    /* --popover-foreground: 0 0% 5%; Near Black */
+    /* --primary: 0 0% 9%; Black */
+    /* --primary-foreground: 0 0% 98%; White */
+    /* --secondary: 0 0% 94%; Light Gray (#F0F0F0) */
+    /* --secondary-foreground: 0 0% 9%; Black */
+    /* --muted: 0 0% 90%; Lighter Gray (#E6E6E6) */
+    /* --muted-foreground: 0 0% 40%; Medium Gray (#666666) */
+    /* --accent: 0 0% 90%; Lighter Gray (#E6E6E6) */
+    /* --accent-foreground: 0 0% 9%; Black */
+    /* --destructive: 0 84.2% 60.2%; Default Red */
+    /* --destructive-foreground: 0 0% 98%; Light text */
+    /* --border: 0 0% 87%; Light Gray Border (#DDDDDD) */
+    /* --input: 0 0% 95%; Very Light Gray Input (#F2F2F2) */
+    /* --ring: 0 0% 15%; Dark Gray Ring */
+    /* --chart-1: 0 0% 40%; */
+    /* --chart-2: 0 0% 60%; */
+    /* --chart-3: 0 0% 20%; */
+    /* --chart-4: 0 0% 75%; */
+    /* --chart-5: 0 0% 50%; */
 
-    --card: 0 0% 98%; /* Very Light Gray */
-    --card-foreground: 0 0% 5%; /* Near Black */
-
-    --popover: 0 0% 100%; /* White */
-    --popover-foreground: 0 0% 5%; /* Near Black */
-
-    --primary: 0 0% 9%; /* Black */
-    --primary-foreground: 0 0% 98%; /* White */
-
-    --secondary: 0 0% 94%; /* Light Gray (#F0F0F0) */
-    --secondary-foreground: 0 0% 9%; /* Black */
-
-    --muted: 0 0% 90%; /* Lighter Gray (#E6E6E6) */
-    --muted-foreground: 0 0% 40%; /* Medium Gray (#666666) */
-
-    --accent: 0 0% 90%; /* Lighter Gray (#E6E6E6) */
-    --accent-foreground: 0 0% 9%; /* Black */
-
-    --destructive: 0 84.2% 60.2%; /* Default Red */
+    /* -- Default to Dark Theme Variables -- */
+    --background: 0 0% 0%; /* Black */
+    --foreground: 0 0% 95%; /* Near White */
+    --card: 0 0% 7%; /* Very Dark Gray (#121212) */
+    --card-foreground: 0 0% 95%; /* Near White */
+    --popover: 0 0% 5%; /* Slightly darker gray */
+    --popover-foreground: 0 0% 95%; /* Near White */
+    --primary: 0 0% 98%; /* White/Very Light Gray */
+    --primary-foreground: 0 0% 9%; /* Black */
+    --secondary: 0 0% 13%; /* Dark Gray (#222222) */
+    --secondary-foreground: 0 0% 98%; /* Very Light Gray */
+    --muted: 0 0% 15%; /* Darker Gray (#262626) */
+    --muted-foreground: 0 0% 65%; /* Medium Gray (#A6A6A6) */
+    --accent: 0 0% 20%; /* Medium Dark Gray (#333333) - for hover/focus */
+    --accent-foreground: 0 0% 98%; /* Very Light Gray */
+    --destructive: 0 62.8% 30.6%; /* Darker Red */
     --destructive-foreground: 0 0% 98%; /* Light text */
-
-    --border: 0 0% 87%; /* Light Gray Border (#DDDDDD) */
-    --input: 0 0% 95%; /* Very Light Gray Input (#F2F2F2) */
-    --ring: 0 0% 15%; /* Dark Gray Ring */
-
-    --chart-1: 0 0% 40%;
-    --chart-2: 0 0% 60%;
-    --chart-3: 0 0% 20%;
-    --chart-4: 0 0% 75%;
-    --chart-5: 0 0% 50%;
+    --border: 0 0% 27%; /* Medium Gray Border (#444444) */
+    --input: 0 0% 10%; /* Dark Gray Input (#1A1A1A) */
+    --ring: 0 0% 80%; /* Light Gray Ring */
+    --chart-1: 0 0% 70%;
+    --chart-2: 0 0% 50%;
+    --chart-3: 0 0% 90%;
+    --chart-4: 0 0% 40%;
+    --chart-5: 0 0% 60%;
 
     --radius: 0.5rem;
 
-    /* Sidebar specific adjustments if needed - inherit from main theme */
+    /* Sidebar specific adjustments - inherit from main dark theme */
     --sidebar-background: var(--background);
     --sidebar-foreground: var(--foreground);
     --sidebar-primary: var(--primary);
@@ -53,35 +71,26 @@
   }
 
   .dark {
-    /* Dark Theme - Minimal Black & White (Default) */
+    /* Ensure dark mode variables are explicitly defined */
     --background: 0 0% 0%; /* Black */
     --foreground: 0 0% 95%; /* Near White */
-
     --card: 0 0% 7%; /* Very Dark Gray (#121212) */
     --card-foreground: 0 0% 95%; /* Near White */
-
     --popover: 0 0% 5%; /* Slightly darker gray */
     --popover-foreground: 0 0% 95%; /* Near White */
-
     --primary: 0 0% 98%; /* White/Very Light Gray */
     --primary-foreground: 0 0% 9%; /* Black */
-
     --secondary: 0 0% 13%; /* Dark Gray (#222222) */
     --secondary-foreground: 0 0% 98%; /* Very Light Gray */
-
     --muted: 0 0% 15%; /* Darker Gray (#262626) */
     --muted-foreground: 0 0% 65%; /* Medium Gray (#A6A6A6) */
-
     --accent: 0 0% 20%; /* Medium Dark Gray (#333333) - for hover/focus */
     --accent-foreground: 0 0% 98%; /* Very Light Gray */
-
     --destructive: 0 62.8% 30.6%; /* Darker Red */
     --destructive-foreground: 0 0% 98%; /* Light text */
-
     --border: 0 0% 27%; /* Medium Gray Border (#444444) */
     --input: 0 0% 10%; /* Dark Gray Input (#1A1A1A) */
     --ring: 0 0% 80%; /* Light Gray Ring */
-
     --chart-1: 0 0% 70%;
     --chart-2: 0 0% 50%;
     --chart-3: 0 0% 90%;
@@ -125,13 +134,12 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(var(--background));
+  background: hsl(var(--background)); /* Use background color */
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted));
+  background: hsl(var(--muted)); /* Use muted color */
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground));
+  background: hsl(var(--muted-foreground)); /* Slightly lighter on hover */
 }
-

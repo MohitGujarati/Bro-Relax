@@ -59,17 +59,18 @@ const MemeCard: FC<MemeCardProps> = ({ meme }) => {
     // Minimal card styling: subtle border, very light shadow on hover maybe
     <Card className="overflow-hidden bg-card border border-border/50 shadow-sm hover:shadow-md transition-shadow duration-300">
       <CardContent className="p-0">
-        {/* Image container */}
-        <div className="aspect-w-1 aspect-h-1 relative bg-muted/10"> {/* Subtle bg */}
+        {/* Image container - Uses aspect-square for correct ratio */}
+        <div className="aspect-square relative bg-muted/10"> {/* Use native aspect-square and ensure relative */}
           <Image
             src={meme.imageUrl}
             alt={meme.altText}
-            fill
-            style={{ objectFit: 'contain' }}
-            sizes="(max-width: 640px) 90vw, 500px"
-            priority={meme.id === 'meme1'}
+            fill // Use fill with relative parent and aspect ratio
+            style={{ objectFit: 'contain' }} // Contain ensures image fits without cropping
+            sizes="(max-width: 640px) 90vw, 500px" // Provide sizes hint for optimization
+            priority={meme.id === 'meme1'} // Prioritize loading the first image
             data-ai-hint={meme.dataAiHint}
             className="rounded-t-lg" // Remove if card has no rounding or border radius
+            unoptimized={process.env.NODE_ENV === 'development'} // Useful for debugging image loading locally
           />
         </div>
       </CardContent>
