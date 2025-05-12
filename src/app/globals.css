@@ -2,37 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+    --background: 240 60% 97%; /* Very light soft lavender */
+    --foreground: 240 10% 20%; /* Dark grayish blue */
+
+    --card: 60 80% 95%; /* Very Pale Yellow */
+    --card-foreground: 60 25% 20%; /* Darker yellow/brown for text on card */
+
+    --popover: 240 60% 97%; /* Match background */
+    --popover-foreground: 240 10% 20%; /* Match foreground */
+
+    --primary: 200 100% 75%; /* Soothing Blue - made a bit more vibrant */
+    --primary-foreground: 200 25% 15%; /* Dark blue for text on primary */
+
+    --secondary: 120 73% 75%; /* Light Green */
+    --secondary-foreground: 120 25% 15%; /* Dark green for text on secondary */
+
+    --muted: 240 30% 90%; /* Lighter grayish blue */
+    --muted-foreground: 240 10% 45%; /* Medium grayish blue for less prominent text */
+
+    --accent: 240 67% 90%; /* Soft Lavender - for interactive elements */
+    --accent-foreground: 240 25% 15%; /* Dark lavender/blue for text on accent */
+
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
+
+    --border: 240 30% 85%; /* Light border */
+    --input: 240 30% 92%; /* Light input background */
+    --ring: 200 100% 65%; /* Soothing Blue for rings, matching primary's feel */
+
     --chart-1: 12 76% 61%;
     --chart-2: 173 58% 39%;
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+
+    /* Sidebar colors can remain as they are, or be adjusted if a sidebar is used. */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -42,31 +49,43 @@ body {
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
+
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 240 10% 10%; /* Dark grayish blue */
+    --foreground: 240 60% 97%; /* Light soft lavender */
+
+    --card: 60 25% 15%; /* Dark Yellow/Brown */
+    --card-foreground: 60 80% 95%; /* Pale Yellow text */
+
+    --popover: 240 10% 10%;
+    --popover-foreground: 240 60% 97%;
+
+    --primary: 200 100% 65%; /* Soothing Blue - can remain vibrant */
+    --primary-foreground: 200 25% 95%; /* Light blue text for dark primary */
+
+    --secondary: 120 60% 50%; /* Darker Light Green */
+    --secondary-foreground: 120 73% 85%; /* Lighter green text */
+
+    --muted: 240 10% 20%;
+    --muted-foreground: 240 30% 70%;
+
+    --accent: 240 30% 30%; /* Darker Soft Lavender */
+    --accent-foreground: 240 67% 90%; /* Lighter lavender text */
+
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
+
+    --border: 240 10% 25%;
+    --input: 240 10% 22%;
+    --ring: 200 100% 75%; /* Lighter Soothing Blue for rings */
+
     --chart-1: 220 70% 50%;
     --chart-2: 160 60% 45%;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    
+    /* Dark sidebar colors, can be adjusted */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
