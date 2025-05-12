@@ -1,5 +1,4 @@
-
-"use client"; // This component renders a list based on imported data, no server-specific logic needed.
+'use client'; // This component renders a list based on imported data, no server-specific logic needed.
 
 import type { FC } from 'react';
 import { memes } from '@/lib/relax-zone-constants';
@@ -13,7 +12,8 @@ const MemeWall: FC = () => {
   return (
     <section aria-labelledby="meme-wall-title">
       <div className="text-center mb-8">
-        <h2 id="meme-wall-title" className="text-3xl font-semibold tracking-tight text-primary">Meme Wall</h2>
+        {/* Updated title color */}
+        <h2 id="meme-wall-title" className="text-3xl font-semibold tracking-tight text-foreground">Meme Wall</h2>
         <p className="mt-2 text-lg text-muted-foreground">Have a laugh, you deserve it!</p>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 md:gap-8">

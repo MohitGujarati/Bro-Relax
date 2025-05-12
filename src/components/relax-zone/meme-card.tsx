@@ -1,5 +1,4 @@
-
-"use client"; // Needs client-side state and event handling for likes/dislikes.
+'use client'; // Needs client-side state and event handling for likes/dislikes.
 
 import type { FC } from 'react';
 import { useState } from 'react';
@@ -62,7 +61,7 @@ const MemeCard: FC<MemeCardProps> = ({ meme }) => {
   };
 
   return (
-    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card border-border">
       <CardContent className="p-0">
         {/* Using Next.js Image component for optimization */}
         <div className="aspect-video relative">
@@ -81,20 +80,20 @@ const MemeCard: FC<MemeCardProps> = ({ meme }) => {
         {/* Like/Dislike Buttons */}
         <div className="flex gap-2">
           <Button
-            variant={liked ? 'default' : 'outline'} // Change variant based on liked state
+            variant={liked ? 'default' : 'outline'} // Use default (primary) when liked, outline otherwise
             size="sm"
             onClick={handleLike}
-            className={`transition-colors ${liked ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'hover:bg-accent'}`}
+            className={`transition-colors ${liked ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'text-foreground hover:bg-accent hover:text-accent-foreground'}`}
             aria-label={`Like meme. Current likes: ${likes}`} // Accessibility label
           >
             <ThumbsUp className="h-4 w-4 mr-2" />
             {likes} {/* Display current like count */}
           </Button>
           <Button
-            variant={disliked ? 'destructive' : 'outline'} // Change variant based on disliked state
+            variant={disliked ? 'destructive' : 'outline'} // Use destructive when disliked, outline otherwise
             size="sm"
             onClick={handleDislike}
-            className={`transition-colors ${disliked ? 'bg-destructive text-destructive-foreground hover:bg-destructive/90' : 'hover:bg-accent'}`}
+            className={`transition-colors ${disliked ? 'hover:bg-destructive/90' : 'text-foreground hover:bg-accent hover:text-accent-foreground'}`}
             aria-label={`Dislike meme. Current dislikes: ${dislikes}`} // Accessibility label
           >
             <ThumbsDown className="h-4 w-4 mr-2" />

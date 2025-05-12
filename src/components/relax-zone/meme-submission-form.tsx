@@ -1,5 +1,4 @@
-
-"use client"; // Needs state for file, preview, and uses client-side APIs like File API and URL.createObjectURL.
+'use client'; // Needs state for file, preview, and uses client-side APIs like File API and URL.createObjectURL.
 
 import type { FC } from 'react';
 import { useState, useRef, ChangeEvent, FormEvent } from 'react';
@@ -30,8 +29,6 @@ const MemeSubmissionForm: FC = () => {
     if (file) {
       setSelectedFile(file);
       // Create a temporary URL for previewing the selected image
-      // Remember to revoke this URL later if needed to free up memory,
-      // though for short-lived previews it might not be critical.
       const newPreviewUrl = URL.createObjectURL(file);
       // Clean up previous preview URL if it exists
       if (previewUrl) {
@@ -64,9 +61,6 @@ const MemeSubmissionForm: FC = () => {
     }
 
     // --- Simulation ---
-    // In a real application, you would typically:
-    // 1. Upload `selectedFile` to a server or cloud storage.
-    // 2. Handle the response (success/error).
     console.log('Simulating submission for:', selectedFile.name);
     toast({
       title: 'Meme Submitted!',
@@ -82,24 +76,22 @@ const MemeSubmissionForm: FC = () => {
     setPreviewUrl(null);
     // Reset the file input visually
     if (fileInputRef.current) {
-      fileInputRef.current.value = ""; 
+      fileInputRef.current.value = "";
     }
   };
 
-   // Cleanup object URL on component unmount
-   // This prevents memory leaks if the component is unmounted before submission
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-   // useEffect(() => {
-   //   return () => {
-   //     if (previewUrl) {
-   //       URL.revokeObjectURL(previewUrl);
-   //     }
-   //   };
-   // }, [previewUrl]); // Run cleanup when previewUrl changes or component unmounts - Disabled due to potential complexity for beginners
+  // Cleanup logic (optional, commented out for simplicity)
+  // useEffect(() => {
+  //   return () => {
+  //     if (previewUrl) {
+  //       URL.revokeObjectURL(previewUrl);
+  //     }
+  //   };
+  // }, [previewUrl]);
 
   return (
     <section aria-labelledby="meme-submission-title" className="mt-16">
-      <Card className="shadow-lg border-dashed border-2 border-primary/50">
+      <Card className="shadow-lg border-dashed border-2 border-primary/50 bg-card">
         <CardHeader className="text-center">
            <div className="flex justify-center items-center mb-2">
             <ImagePlus className="h-10 w-10 text-primary" />
@@ -122,7 +114,8 @@ const MemeSubmissionForm: FC = () => {
                 accept="image/*" // Accept only image files
                 onChange={handleFileChange}
                 ref={fileInputRef} // Attach ref
-                className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 cursor-pointer"
+                // Updated file input style to use theme colors
+                className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 cursor-pointer bg-input border-border text-foreground"
                 aria-describedby="file-constraints" // Describe accepted file types
               />
                <p id="file-constraints" className="text-xs text-muted-foreground mt-1">Accepts image files (e.g., JPG, PNG, GIF).</p>
@@ -142,7 +135,7 @@ const MemeSubmissionForm: FC = () => {
               </div>
             )}
 
-            {/* Submit Button */}
+            {/* Submit Button - Updated styles */}
             <Button type="submit" className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90" disabled={!selectedFile}> {/* Disable button if no file selected */}
               <UploadCloud className="h-4 w-4 mr-2" /> Submit Meme
             </Button>

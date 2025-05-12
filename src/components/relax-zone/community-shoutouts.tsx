@@ -1,5 +1,4 @@
-
-"use client"; // Needs state for messages, form input, and uses hooks like useRef and useToast.
+'use client'; // Needs state for messages, form input, and uses hooks like useRef and useToast.
 
 import type { FC } from 'react';
 import { useState, useRef, FormEvent } from 'react';
@@ -49,7 +48,6 @@ const CommunityShoutouts: FC = () => {
     };
 
     // Update the shoutouts state: add the new shoutout to the beginning of the list
-    // This uses functional update form of setState for potentially better performance with rapid updates
     setShoutouts(prevShoutouts => [newShoutout, ...prevShoutouts]);
     // Clear the input field
     setNewMessage('');
@@ -66,14 +64,14 @@ const CommunityShoutouts: FC = () => {
     <section aria-labelledby="community-shoutouts-title">
       {/* Section Header */}
       <div className="text-center mb-8">
-        <h2 id="community-shoutouts-title" className="text-3xl font-semibold tracking-tight text-accent-foreground flex items-center justify-center gap-2">
-          <Users className="h-8 w-8 text-accent" /> Community Shoutouts
+        <h2 id="community-shoutouts-title" className="text-3xl font-semibold tracking-tight text-foreground flex items-center justify-center gap-2">
+          <Users className="h-8 w-8 text-primary" /> Community Shoutouts
         </h2>
         <p className="mt-2 text-lg text-muted-foreground">Share some positivity, read uplifting messages.</p>
       </div>
 
       {/* Main content container */}
-      <div className="bg-background p-6 rounded-lg shadow-lg border border-border">
+      <div className="bg-card p-6 rounded-lg shadow-lg border border-border">
         {/* New Message Form */}
         <form onSubmit={handlePostMessage} className="mb-8 space-y-4">
           <Textarea
@@ -81,11 +79,12 @@ const CommunityShoutouts: FC = () => {
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)} // Update state on input change
             placeholder="Share a motivational message or positive thought..."
-            className="min-h-[100px] focus:ring-primary focus-visible:ring-primary" // Ensure focus ring uses primary color
+            className="min-h-[100px] focus:ring-primary focus-visible:ring-primary bg-input border-border" // Ensure focus ring uses primary color and consistent background
             aria-label="New shoutout message"
             rows={3} // Suggest a reasonable initial height
           />
-          <Button type="submit" className="w-full sm:w-auto bg-accent text-accent-foreground hover:bg-accent/90">
+          {/* Updated button style */}
+          <Button type="submit" className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90">
             <Send className="h-4 w-4 mr-2" /> Post Message
           </Button>
         </form>
@@ -94,7 +93,7 @@ const CommunityShoutouts: FC = () => {
         <h3 className="text-xl font-medium mb-4 text-muted-foreground">Latest Shoutouts:</h3>
         {shoutouts.length > 0 ? (
           // Use ScrollArea for potentially long lists of shoutouts
-          <ScrollArea className="h-[400px] pr-4 -mr-4 border rounded-md"> {/* Added border for visual clarity */}
+          <ScrollArea className="h-[400px] pr-4 -mr-4 border rounded-md border-border"> {/* Added border for visual clarity */}
             <div className="space-y-4 p-4"> {/* Added padding inside scroll area */}
               {shoutouts.map((shoutout) => (
                 <ShoutoutCard key={shoutout.id} shoutout={shoutout} />

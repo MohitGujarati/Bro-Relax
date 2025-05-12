@@ -1,11 +1,9 @@
-
-"use client"; // Simple display component, but uses client components (Avatar), safe as client component.
+'use client'; // Simple display component, but uses client components (Avatar), safe as client component.
 
 import type { FC } from 'react';
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'; // Removed AvatarImage as it's not used
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import type { Shoutout } from '@/lib/relax-zone-constants';
-// Removed MessageSquareText import as it's not used
 
 interface ShoutoutCardProps {
   shoutout: Shoutout; // Defines the expected data structure for a shoutout
@@ -17,11 +15,10 @@ interface ShoutoutCardProps {
  */
 const ShoutoutCard: FC<ShoutoutCardProps> = ({ shoutout }) => {
   return (
-    <Card className="bg-card shadow-md hover:shadow-lg transition-shadow duration-300">
+    <Card className="bg-card text-card-foreground shadow-md hover:shadow-lg transition-shadow duration-300 border-border">
       <CardHeader className="flex flex-row items-center space-x-3 pb-3">
-        {/* User Avatar */}
+        {/* User Avatar - Updated styles */}
         <Avatar>
-          {/* Placeholder fallback if image is not available */}
           <AvatarFallback className="bg-primary text-primary-foreground">{shoutout.avatarFallback}</AvatarFallback>
         </Avatar>
         {/* User Info */}
