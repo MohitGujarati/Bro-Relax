@@ -1,3 +1,4 @@
+
 // src/app/relax/breathe/page.tsx
 'use client'; // BreathingExercise is a client component
 
@@ -13,4 +14,3 @@ const BreathePage: FC = () => {
 };
 
 export default BreathePage;
-```

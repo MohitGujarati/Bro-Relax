@@ -156,27 +156,13 @@
 
 
 @layer utilities {
-  /* Breathing animation keyframes */
-  @keyframes breath-inhale {
-    from { transform: scale(0.5); opacity: 0.7; }
-    to { transform: scale(1); opacity: 1; }
-  }
-  @keyframes breath-exhale {
-    from { transform: scale(1); opacity: 1; }
-    to { transform: scale(0.5); opacity: 0.7; }
-  }
-  .animate-breath-inhale {
-    animation-name: breath-inhale;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;
-    /* Duration set inline */
-  }
-  .animate-breath-exhale {
-    animation-name: breath-exhale;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
-    /* Duration set inline */
-  }
+  /* Breathing animation keyframes are now defined inline in breathing-exercise.tsx */
+  /* Remove the following keyframes definitions if they exist */
+  /* @keyframes breath-inhale { ... } */
+  /* @keyframes breath-exhale { ... } */
+  /* Remove the following utility classes if they exist */
+  /* .animate-breath-inhale { ... } */
+  /* .animate-breath-exhale { ... } */
 }
 
 
