@@ -1,3 +1,4 @@
+
 'use client'; // Needs client-side state and event handling for likes/dislikes.
 
 import type { FC } from 'react';
@@ -13,7 +14,7 @@ interface MemeCardProps {
 }
 
 /**
- * Displays a single meme with like/dislike buttons.
+ * Displays a single meme with like/dislike buttons, styled like a social media post card.
  * Manages its own like/dislike state.
  */
 const MemeCard: FC<MemeCardProps> = ({ meme }) => {
@@ -27,14 +28,11 @@ const MemeCard: FC<MemeCardProps> = ({ meme }) => {
   // Handles the click event on the Like button
   const handleLike = () => {
     if (liked) {
-      // If already liked, unlike it
       setLikes(likes - 1);
       setLiked(false);
     } else {
-      // If not liked, like it
       setLikes(likes + 1);
       setLiked(true);
-      // If it was previously disliked, undo the dislike
       if (disliked) {
         setDislikes(dislikes - 1);
         setDisliked(false);
@@ -45,14 +43,11 @@ const MemeCard: FC<MemeCardProps> = ({ meme }) => {
   // Handles the click event on the Dislike button
   const handleDislike = () => {
     if (disliked) {
-      // If already disliked, undislike it
       setDislikes(dislikes - 1);
       setDisliked(false);
     } else {
-      // If not disliked, dislike it
       setDislikes(dislikes + 1);
       setDisliked(true);
-      // If it was previously liked, undo the like
       if (liked) {
         setLikes(likes - 1);
         setLiked(false);
@@ -61,45 +56,58 @@ const MemeCard: FC<MemeCardProps> = ({ meme }) => {
   };
 
   return (
-    <Card className="overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 bg-card border-border">
+    // Adjusted card styling for feed layout
+    <Card className="overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300 bg-card border border-border">
       <CardContent className="p-0">
-        {/* Using Next.js Image component for optimization */}
-        <div className="aspect-video relative">
+        {/* Image container with adjusted aspect ratio */}
+        <div className="aspect-w-1 aspect-h-1 sm:aspect-w-4 sm:aspect-h-3 relative bg-muted/30"> {/* Adjusted aspect ratio */}
           <Image
             src={meme.imageUrl}
             alt={meme.altText}
-            fill // Use fill instead of layout="fill"
-            style={{ objectFit: 'cover' }} // Use style object for objectFit
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" // Provide sizes prop for responsive images
+            fill // Use fill
+            style={{ objectFit: 'contain' }} // Changed to contain to show whole meme
+            sizes="(max-width: 640px) 90vw, 500px" // Adjusted sizes
             priority={meme.id === 'meme1'} // Prioritize loading the first meme
-            data-ai-hint={meme.dataAiHint} // Hint for AI image generation/selection later
+            data-ai-hint={meme.dataAiHint}
+            className="rounded-t-lg" // Ensure image corners match card if needed
           />
         </div>
       </CardContent>
-      <CardFooter className="p-4 flex justify-between items-center bg-card-foreground/5">
-        {/* Like/Dislike Buttons */}
-        <div className="flex gap-2">
+      {/* Footer with interaction buttons */}
+      <CardFooter className="py-2 px-3 flex justify-start items-center bg-card">
+        <div className="flex gap-1.5">
+          {/* Like Button - More subtle styling */}
           <Button
-            variant={liked ? 'default' : 'outline'} // Use default (primary) when liked, outline otherwise
+            variant="ghost" // Ghost variant for less emphasis
             size="sm"
             onClick={handleLike}
-            className={`transition-colors ${liked ? 'bg-primary text-primary-foreground hover:bg-primary/90' : 'text-foreground hover:bg-accent hover:text-accent-foreground'}`}
-            aria-label={`Like meme. Current likes: ${likes}`} // Accessibility label
+            className={`flex items-center gap-1 px-2 transition-colors rounded-md ${
+              liked
+                ? 'text-primary bg-primary/10 hover:bg-primary/20'
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+            aria-label={`Like meme. Current likes: ${likes}`}
           >
-            <ThumbsUp className="h-4 w-4 mr-2" />
-            {likes} {/* Display current like count */}
+            <ThumbsUp className={`h-4 w-4 ${liked ? 'fill-current' : ''}`} /> {/* Conditional fill */}
+            <span className="text-xs font-medium">{likes}</span>
           </Button>
+          {/* Dislike Button - More subtle styling */}
           <Button
-            variant={disliked ? 'destructive' : 'outline'} // Use destructive when disliked, outline otherwise
+            variant="ghost"
             size="sm"
             onClick={handleDislike}
-            className={`transition-colors ${disliked ? 'hover:bg-destructive/90' : 'text-foreground hover:bg-accent hover:text-accent-foreground'}`}
-            aria-label={`Dislike meme. Current dislikes: ${dislikes}`} // Accessibility label
+             className={`flex items-center gap-1 px-2 transition-colors rounded-md ${
+              disliked
+                ? 'text-destructive bg-destructive/10 hover:bg-destructive/20'
+                : 'text-muted-foreground hover:text-foreground hover:bg-accent'
+            }`}
+            aria-label={`Dislike meme. Current dislikes: ${dislikes}`}
           >
-            <ThumbsDown className="h-4 w-4 mr-2" />
-            {dislikes} {/* Display current dislike count */}
+            <ThumbsDown className={`h-4 w-4 ${disliked ? 'fill-current' : ''}`} /> {/* Conditional fill */}
+            <span className="text-xs font-medium">{dislikes}</span>
           </Button>
         </div>
+        {/* Placeholder for comments or share icon if needed later */}
       </CardFooter>
     </Card>
   );

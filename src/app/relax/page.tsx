@@ -1,60 +1,79 @@
+
 'use client'; // This page uses client-side interactivity (state, effects, event handlers)
 
 import type { FC } from 'react';
 import MemeWall from '@/components/relax-zone/meme-wall';
 import MotivationBox from '@/components/relax-zone/motivation-box';
 import CommunityShoutouts from '@/components/relax-zone/community-shoutouts';
-import MemeSubmissionForm from '@/components/relax-zone/meme-submission-form'; // Optional Bonus feature
+import MemeSubmissionForm from '@/components/relax-zone/meme-submission-form';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
+import { ArrowLeft } from 'lucide-react';
 
 /**
- * Renders the Zenith Zone page, a dedicated space for relaxation featuring
- * memes, motivational quotes, community messages, and a music player.
+ * Renders the Zenith Zone page, redesigned for a user-friendly, feed-like experience
+ * inspired by social media UIs and modern design principles (Apple/Google).
  */
 const RelaxZonePage: FC = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary-foreground">
-      <div className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        {/* Page Header */}
-        <header className="text-center mb-12 animate-fadeIn">
-          <h1 className="text-5xl font-extrabold tracking-tight sm:text-6xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-foreground via-primary to-accent">
-            Zenith Zone
-          </h1>
-          <p className="mt-4 text-xl text-muted-foreground max-w-2xl mx-auto">
-            Welcome to your personal sanctuary. A space to unwind, recharge, and find a moment of peace amidst the hustle.
-          </p>
-        </header>
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 selection:text-primary-foreground flex flex-col">
+      {/* Simplified Header */}
+      <header className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b border-border p-4 flex items-center justify-between">
+        <Link href="/">
+          <Button variant="ghost" size="icon" aria-label="Back to Home">
+             <ArrowLeft className="h-5 w-5" />
+          </Button>
+        </Link>
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+          Zenith Zone
+        </h1>
+        {/* Placeholder for potential actions like user profile icon */}
+        <div className="w-8"></div>
+      </header>
 
-        {/* Main Content Area */}
-        <main className="max-w-5xl mx-auto space-y-16">
-          {/* Meme Wall Section */}
+      {/* Main Content Feed */}
+      <main className="flex-grow container mx-auto py-6 px-4 sm:px-6 lg:px-8 max-w-2xl">
+        <div className="space-y-8">
+           {/* Introductory text - Optional */}
+           <p className="text-center text-muted-foreground mb-8 animate-fadeIn">
+            Your space to unwind, recharge, and share some positivity.
+           </p>
+
+          {/* Meme Submission - Placed prominently like a "Create Post" */}
+           <div className="animate-slideUp">
+            <MemeSubmissionForm />
+           </div>
+
+          <Separator className="my-8" />
+
+          {/* Meme Wall Section integrated into the feed */}
           <div className="animate-slideUp animation-delay-200">
             <MemeWall />
           </div>
 
-          {/* Motivation & Music Section */}
+          <Separator className="my-8" />
+
+          {/* Motivation Section integrated as a card */}
           <div className="animate-slideUp animation-delay-400">
             <MotivationBox />
           </div>
 
-          {/* Community Shoutouts Section */}
+          <Separator className="my-8" />
+
+          {/* Community Shoutouts Section integrated into the feed */}
           <div className="animate-slideUp animation-delay-600">
             <CommunityShoutouts />
           </div>
+        </div>
+      </main>
 
-          {/* Optional Bonus: Meme Submission Form */}
-          <div className="animate-slideUp animation-delay-800">
-            <MemeSubmissionForm />
-          </div>
-        </main>
-
-        {/* Page Footer */}
-        <footer className="text-center mt-20 py-8 border-t border-border">
-          <p className="text-muted-foreground">
-            &copy; {new Date().getFullYear()} Career Navigator. Keep shining.
-          </p>
-        </footer>
-      </div>
-      {/* Note: Animation styles moved to globals.css */}
+      {/* Simplified Footer */}
+      <footer className="text-center py-6 border-t border-border mt-12">
+        <p className="text-xs text-muted-foreground">
+          &copy; {new Date().getFullYear()} Career Navigator. Find your calm.
+        </p>
+      </footer>
     </div>
   );
 };

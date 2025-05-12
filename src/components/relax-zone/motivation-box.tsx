@@ -1,21 +1,20 @@
-'use client'; // Needs state for quote, player visibility, and effect for initial quote.
+
+'use client'; // Needs state for quote and effect for initial quote.
 
 import type { FC } from 'react';
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { motivationalQuotes, relaxingMusicUrl } from '@/lib/relax-zone-constants';
-import { Quote, RefreshCw, Music2 } from 'lucide-react';
+import { motivationalQuotes } from '@/lib/relax-zone-constants';
+import { Quote, RefreshCw, Sparkles } from 'lucide-react'; // Changed icon
 
 /**
- * Displays a random motivational quote and provides an option
- * to show/hide an embedded YouTube music player.
+ * Displays a random motivational quote in a card format.
+ * Simplified to focus on quotes for better feed integration.
  */
 const MotivationBox: FC = () => {
   // State to hold the currently displayed quote
   const [quote, setQuote] = useState('');
-  // State to control the visibility of the music player
-  const [showPlayer, setShowPlayer] = useState(false);
 
   // Function to select and set a random quote from the list
   const getRandomQuote = () => {
@@ -27,56 +26,35 @@ const MotivationBox: FC = () => {
   // useEffect hook to fetch the initial quote when the component mounts
   useEffect(() => {
     getRandomQuote();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array ensures this runs only once on mount
 
   return (
     <section aria-labelledby="motivation-box-title">
-      <Card className="shadow-lg bg-card border-border">
-        <CardHeader className="text-center">
-          {/* Updated title styling */}
-          <CardTitle id="motivation-box-title" className="text-3xl font-semibold tracking-tight text-foreground flex items-center justify-center gap-2">
-             <Music2 className="h-8 w-8 text-primary" /> Motivation & Melodies
+      <Card className="shadow-lg bg-card border-border overflow-hidden">
+        <CardHeader className="pb-4">
+          {/* Updated title styling for a cleaner look */}
+          <CardTitle id="motivation-box-title" className="text-xl font-semibold tracking-tight text-foreground flex items-center gap-2">
+             <Sparkles className="h-5 w-5 text-primary" /> A Moment of Motivation
           </CardTitle>
-          <p className="mt-2 text-lg text-muted-foreground">Fuel your spirit, find your rhythm.</p>
         </CardHeader>
-        <CardContent className="space-y-6 p-6">
-          {/* Quote Display Area - Updated background and text colors */}
-          <div className="text-center p-6 bg-secondary/50 rounded-lg shadow-inner min-h-[120px] flex flex-col justify-center items-center">
-            <Quote className="h-8 w-8 text-primary mb-2 opacity-70" />
+        <CardContent className="space-y-4 p-6 pt-0">
+          {/* Quote Display Area - Adjusted styling */}
+          <div className="text-center p-4 bg-secondary/30 rounded-lg shadow-inner min-h-[100px] flex flex-col justify-center items-center border border-border/50">
+            <Quote className="h-6 w-6 text-primary mb-3 opacity-70 transform -scale-x-100" /> {/* Flipped quote icon */}
             {quote ? (
-              <p className="text-xl italic text-foreground">"{quote}"</p>
+              <p className="text-lg italic text-foreground leading-relaxed">"{quote}"</p>
             ) : (
               // Placeholder while the quote is loading initially
-              <p className="text-xl italic text-muted-foreground">Loading inspirational quote...</p>
-            )}
-            {/* Button to fetch a new random quote - Adjusted styling */}
-            <Button variant="ghost" size="sm" onClick={getRandomQuote} className="mt-4 text-primary hover:text-primary/80 hover:bg-accent">
-              <RefreshCw className="h-4 w-4 mr-2" /> New Quote
-            </Button>
-          </div>
-
-          {/* Music Player Section */}
-          <div className="text-center">
-             {/* Button to toggle the music player visibility - Use outline variant */}
-             <Button onClick={() => setShowPlayer(!showPlayer)} variant="outline" className="mb-4 text-foreground hover:bg-accent hover:text-accent-foreground">
-              {showPlayer ? 'Hide' : 'Show'} Relaxing Music Player
-            </Button>
-            {/* Conditional rendering of the iframe based on showPlayer state */}
-            {showPlayer && (
-              <div className="aspect-video w-full max-w-2xl mx-auto rounded-lg overflow-hidden shadow-md border border-border">
-                <iframe
-                  src={relaxingMusicUrl}
-                  title="Relaxing Music Player"
-                  frameBorder="0"
-                  // Allow necessary permissions for embedded content
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="w-full h-full"
-                  loading="lazy" // Lazy load the iframe
-                ></iframe>
-              </div>
+              <p className="text-lg italic text-muted-foreground">Loading inspiration...</p>
             )}
           </div>
+          {/* Button to fetch a new random quote - Adjusted styling */}
+           <div className="flex justify-center">
+             <Button variant="outline" size="sm" onClick={getRandomQuote} className="mt-2 text-primary border-primary/50 hover:bg-primary/10 hover:text-primary">
+                <RefreshCw className="h-4 w-4 mr-2" /> Another Quote
+              </Button>
+            </div>
         </CardContent>
       </Card>
     </section>
