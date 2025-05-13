@@ -1,40 +1,21 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google'; // Import Inter
+import { Inter } from 'next/font/google';
 import './globals.css';
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from '@/components/ui/toaster';
 
 // Configure Inter font
 const inter = Inter({
   subsets: ['latin'],
-  variable: '--font-inter', // Optional: if you want to use it as a CSS variable
+  variable: '--font-inter',
 });
 
 export const metadata: Metadata = {
   title: 'Relax Bro',
   description: 'Your space to relax and recharge.',
   icons: {
-    icon: [
-      {
-        url: '/favicon.ico',
-        sizes: 'any',
-      },
-      {
-        url: '/icon.png',
-        type: 'image/png',
-        sizes: '32x32',
-      },
-      {
-        url: '/apple-icon.png',
-        type: 'image/png',
-        sizes: '180x180',
-      },
-    ],
-    apple: [
-      {
-        url: '/apple-icon.png',
-        sizes: '180x180',
-      },
-    ],
+    icon: '/maxcat.jpg',          // Fallback for most browsers
+    shortcut: '/maxcat.jpg',
+    apple: '/maxcat.jpg',
   },
   manifest: '/manifest.json',
   themeColor: '#000000',
@@ -46,19 +27,20 @@ export const metadata: Metadata = {
   },
 };
 
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} dark`}> {/* Apply Inter font class and dark mode */}
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <link rel="icon" href="/icon.png" type="image/png" sizes="32x32" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
-      </head>
-      <body className={`font-sans antialiased bg-background text-foreground`}> {/* Use 'font-sans' which will pick up Inter */}
+    <html lang="en" className={`${inter.variable} dark`}>
+<head>
+  <link rel="icon" href="/maxcat.jpg" />
+  
+</head>
+
+      <body className="font-sans antialiased bg-background text-foreground">
         {children}
         <Toaster />
       </body>

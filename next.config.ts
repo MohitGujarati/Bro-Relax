@@ -1,4 +1,5 @@
 import type {NextConfig} from 'next';
+import Image from 'next/image'
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -17,6 +18,7 @@ const nextConfig: NextConfig = {
         pathname: '/**',
       },
     ],
+    domains: ['upload.wikimedia.org'],
   },
 };
 

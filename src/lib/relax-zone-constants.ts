@@ -20,6 +20,16 @@ export interface Meme {
  * An array of sample Meme objects used to populate the Meme Wall.
  */
 export const memes: Meme[] = [
+
+  {
+    id: 'meme0',
+    imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/VAN_CAT.png/800px-VAN_CAT.png',
+    altText: 'Van cat sitting proudly',
+    initialLikes: 12,
+    initialDislikes: 1,
+    dataAiHint: 'white cat with odd eyes',
+  }
+,  
   {
     id: 'meme1',
     imageUrl: 'https://picsum.photos/seed/jobhunt/600/400',
@@ -52,6 +62,7 @@ export const memes: Meme[] = [
     initialLikes: 18,
     initialDislikes: 3,
   },
+ 
 ];
 
 /**
