@@ -7,7 +7,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-center p-6 sm:p-24 bg-background">
       <div className="text-center space-y-8 max-w-3xl"> {/* Increased max-width slightly */}
         <h1 className="text-5xl sm:text-7xl font-medium tracking-tight text-foreground"> {/* Adjusted font weight and size */}
-          Zenith Zone
+          Relax Bro
         </h1>
         <p className="text-xl sm:text-2xl text-muted-foreground leading-relaxed"> {/* Improved leading for readability */}
           Your sanctuary to unwind, recharge, and find a moment of calm. Discover memes, motivation, and community positivity.

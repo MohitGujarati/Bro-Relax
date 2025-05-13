@@ -28,18 +28,18 @@ const getTitleFromPathname = (pathname: string): string => {
   if (pathname.includes('/quotes')) return 'Inspiration';
   if (pathname.includes('/breathe')) return 'Guided Breathing';
   if (pathname.includes('/profile')) return 'Community Vibes';
-  return 'Zenith Zone'; // Fallback title
+  return 'Relax Bro'; // Updated fallback title
 };
 
 export default function RelaxLayout({ children }: RelaxLayoutProps) {
   const [isMemeDialogOpen, setIsMemeDialogOpen] = useState(false);
-  const [currentTimestamp, setCurrentTimestamp] = useState('');
+  const [currentTimestamp, setCurrentTimestamp] = useState(new Date().getFullYear());
   const pathname = usePathname(); // Get current pathname
-  const [pageTitle, setPageTitle] = useState('Zenith Zone'); // State for dynamic title
+  const [pageTitle, setPageTitle] = useState('Relax Bro'); // Updated initial title
 
   useEffect(() => {
     // Update timestamp on client mount
-    setCurrentTimestamp(new Date().getFullYear().toString());
+    setCurrentTimestamp(new Date().getFullYear());
   }, []);
 
   useEffect(() => {
@@ -47,58 +47,44 @@ export default function RelaxLayout({ children }: RelaxLayoutProps) {
     setPageTitle(getTitleFromPathname(pathname));
   }, [pathname]);
 
-
-  const handleMemeSubmissionSuccess = () => {
-    setIsMemeDialogOpen(false);
-  };
-
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
-      {/* Header - Glassmorphic */}
-      <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-lg border-b border-border/30">
-        {/* Slightly adjusted blur and border */}
-        <div className="container mx-auto h-14 px-4 flex items-center justify-between max-w-5xl">
-          <Link href="/" aria-label="Back to Home">
-            <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground transition-colors">
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
-          </Link>
-          <h1 className="text-lg font-medium text-foreground tracking-tight">
-            {pageTitle} {/* Dynamic Page Title */}
-          </h1>
+    <div className="min-h-screen flex flex-col bg-background">
+      {/* Header */}
+      <header className="sticky top-0 z-30 w-full border-b border-border/20 bg-background/80 backdrop-blur-sm">
+        <div className="container flex h-14 items-center justify-between px-4">
+          <div className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
+              <ArrowLeft className="h-4 w-4" />
+              <span className="text-sm font-medium">Back</span>
+            </Link>
+          </div>
           <Dialog open={isMemeDialogOpen} onOpenChange={setIsMemeDialogOpen}>
             <DialogTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Share a Meme" className="text-muted-foreground hover:text-foreground transition-colors">
-                <ImagePlus className="h-5 w-5" />
+              <Button variant="outline" size="sm" className="gap-2">
+                <ImagePlus className="h-4 w-4" />
+                <span className="hidden sm:inline">Share Meme</span>
               </Button>
             </DialogTrigger>
-            {/* DialogContent inherits glassmorphism from ui/card */}
-            <DialogContent className="sm:max-w-[450px] shadow-xl rounded-lg">
-              <DialogHeader className="px-6 pt-6 pb-2">
-                <DialogTitle className="text-foreground text-xl">Share a Meme</DialogTitle>
-                <DialogDescription className="text-muted-foreground text-sm pt-1">
-                  Got a funny or uplifting image? Share it!
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Share a Meme</DialogTitle>
+                <DialogDescription>
+                  Spread some joy! Share your favorite meme with the community.
                 </DialogDescription>
               </DialogHeader>
-              <div className="px-6 pb-6 pt-2">
-                <MemeSubmissionForm onSuccess={handleMemeSubmissionSuccess} />
-              </div>
+              <MemeSubmissionForm onSuccess={() => setIsMemeDialogOpen(false)} />
             </DialogContent>
           </Dialog>
         </div>
       </header>
 
-      {/* Added padding-bottom to accommodate fixed bottom nav */}
-      <main className="flex-grow container mx-auto max-w-5xl w-full pt-4 pb-24 sm:pb-20 px-2 sm:px-0"> 
+      {/* Main Content */}
+      <main className="flex-1 container px-4 py-6">
         {children}
       </main>
 
+      {/* Bottom Navigation */}
       <BottomNavigation />
-
-      {/* Footer hidden on small screens, subtle glass effect */}
-      <footer className="text-center py-4 border-t border-border/20 text-xs text-muted-foreground hidden sm:block bg-background/30 backdrop-blur-sm mt-auto">
-         &copy; {currentTimestamp} Zenith Zone. Find your calm.
-      </footer>
     </div>
   );
 }
